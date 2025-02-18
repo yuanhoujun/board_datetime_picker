@@ -140,6 +140,13 @@ class _MySampleAppState extends State<MySampleApp> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 15),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(fixedSize: Size(250, 40)),
+                      onPressed: () {
+                        _showDateTimePicker();
+                      },
+                      child: Text("时间选择器"))
                 ],
               ),
             ),
@@ -183,6 +190,81 @@ class _MySampleAppState extends State<MySampleApp> {
         builderDate.value = val;
       },
     );
+  }
+
+  void _showDateTimePicker() async {
+    final result = await showBoardDateTimePicker(
+      context: context,
+      pickerType: DateTimePickerType.datetime,
+      radius: 0,
+      // initialDate: DateTime.now(),
+      // minimumDate: DateTime.now().add(const Duration(days: 1)),
+      options: BoardDateTimeOptions(
+        languages: const BoardPickerLanguages.en(),
+        startDayOfWeek: DateTime.sunday,
+        pickerFormat: PickerFormat.ymd,
+        // boardTitle: 'Board Picker',
+        // pickerSubTitles: BoardDateTimeItemTitles(year: 'year'),
+        withSecond: false,
+        foregroundColor: Colors.transparent,
+        topMargin: 0,
+        customOptions: false
+            ? BoardPickerCustomOptions(
+                seconds: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55],
+              )
+            : null,
+        actionButtonTypes: [BoardDateButtonType.today],
+        useResetButton: true,
+        useAmpm: true,
+        separators: BoardDateTimePickerSeparators(
+          date: PickerSeparator.slash,
+          dateTimeSeparatorBuilder: (context, defaultTextStyle) {
+            return Container(
+              height: 4,
+              width: 8,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            );
+          },
+          time: PickerSeparator.colon,
+          timeSeparatorBuilder: (context, defaultTextStyle) {
+            return Container(
+              height: 8,
+              width: 4,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            );
+          },
+        ),
+      ),
+      // Specify if you want changes in the picker to take effect immediately.
+      valueNotifier: null,
+      controller: controller,
+      // headerWidget: Container(
+      //   height: 50,
+      //   width: double.infinity,
+      //   color: Colors.red,
+      // ),
+      customCloseButtonBuilder:
+          (BuildContext context, bool isModal, void Function() onClose) {
+        return TextButton(onPressed: () {}, child: Text("关闭"));
+      },
+      onTopActionBuilder: (context) {
+        return Container(
+          height: 40,
+          width: double.infinity,
+          color: Colors.red,
+        );
+      },
+    );
+    if (result != null) {
+      // date.value = result;
+      print('result: $result');
+    }
   }
 }
 

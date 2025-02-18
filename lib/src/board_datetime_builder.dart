@@ -389,7 +389,7 @@ class _SingleBoardDateTimeContentState<T extends BoardDateTimeCommonResult>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (widget.headerWidget != null) widget.headerWidget!,
+            // if (widget.headerWidget != null) widget.headerWidget!,
             isWide
                 ? PickerCalendarWideWidget(
                     arguments: args,

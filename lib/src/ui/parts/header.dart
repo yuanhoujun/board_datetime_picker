@@ -188,67 +188,29 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
 
   @override
   Widget build(BuildContext context) {
-    final onReset = widget.onReset;
-    final topActionWidget = widget.onTopActionBuilder?.call(context);
-
-    final closeButtonBuilder =
-        widget.customCloseButtonBuilder ?? _defaultCloseButtonBuilder;
-    final closeButton =
-        closeButtonBuilder(context, widget.modal, widget.onClose);
-
-    final child = Container(
-      height: height,
-      margin: EdgeInsets.only(top: widget.topMargin, left: 8, right: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: widget.foregroundColor.withValues(alpha: 0.99),
-      ),
-      clipBehavior: Clip.antiAlias,
+    final child = SizedBox(
+      height: 80,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (topActionWidget == null) ...[
-            if (widget.pickerType == DateTimePickerType.time)
-              ..._timeItems(context)
-            else
-              ..._dateItems(context),
-            Expanded(child: Container())
-          ] else ...[
-            if (widget.pickerType != DateTimePickerType.time) _calendarButton(),
-            Expanded(child: topActionWidget),
-          ],
-
-          // Visibility(
-          //   visible: widget.keyboardHeightRatio == 0,
-          //   child: Opacity(
-          //     opacity: 0.8 * (1 - widget.keyboardHeightRatio),
-          //     child: IconButton(
-          //       onPressed: () {
-          //         widget.onKeyboadClose();
-          //       },
-          //       icon: const Icon(
-          //         Icons.keyboard_hide_rounded,
-          //       ),
-          //       color: widget.textColor,
-          //     ),
-          //   ),
-          // ),
-          if (onReset != null)
-            GestureDetector(
-              child: Container(
-                width: 40,
-                alignment: Alignment.center,
-                child: IconButton(
-                  onPressed: () {
-                    widget.onReset?.call();
-                  },
-                  icon: const Icon(Icons.restart_alt_rounded),
-                  color: widget.textColor,
-                ),
+          const SizedBox(width: 15),
+          const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [Text("2025年2月18日"), Text("/"), Text("周二")],
               ),
-              onTap: () {},
-            ),
-
-          closeButton,
+              SizedBox(height: 5),
+              Text("14:36")
+            ],
+          ),
+          const Spacer(),
+          ElevatedButton(
+              onPressed: () {
+                widget.onChangTime(DateTime.now());
+              },
+              child: const Text("当前时间")),
+          const SizedBox(width: 15),
         ],
       ),
     );
@@ -262,29 +224,6 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
       );
     }
     return child;
-  }
-
-  Widget _calendarButton() {
-    if (widget.wide) {
-      return const SizedBox(width: 24);
-    } else {
-      return Opacity(
-        opacity: 0.6,
-        child: IconButton(
-          onPressed: widget.onCalendar,
-          icon: Transform.rotate(
-            angle: pi * 4 * widget.calendarAnimation.value,
-            child: Icon(
-              widget.calendarAnimation.value > 0.5
-                  ? Icons.view_day_rounded
-                  : Icons.calendar_month_rounded,
-              size: 20,
-            ),
-          ),
-          color: widget.textColor,
-        ),
-      );
-    }
   }
 
   List<Widget> _dateItems(BuildContext context) {
@@ -329,11 +268,11 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
     }
 
     return [
-      _calendarButton(),
-      Wrap(
-        spacing: widget.wide ? 20 : 12,
-        children: buttons,
-      )
+      // _calendarButton(),
+      // Wrap(
+      //   spacing: widget.wide ? 20 : 12,
+      //   children: buttons,
+      // )
     ];
   }
 
