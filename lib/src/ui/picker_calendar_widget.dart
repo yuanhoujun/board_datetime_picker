@@ -46,7 +46,7 @@ class PickerCalendarArgs {
     this.endDate,
     this.onMultiChange,
     this.onChangeDateType,
-    required this.onKeyboadClose,
+    required this.onKeyboadClose
   });
 }
 
@@ -141,7 +141,7 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
             key: x.stateKey,
             option: x,
             foregroundColor: args.options.getForegroundColor(context),
-            textColor: args.options.getTextColor(context),
+            textColor: args.options.textColor,
             onChange: (index) => args.onChangeByPicker(x, index),
             showedKeyboard: () {
               return args.keyboardHeightRatio() < 0.5;
@@ -149,6 +149,7 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
             wide: isWide,
             subTitle: x.subTitle,
             inputable: args.options.inputable,
+            selectedTextColor: args.options.selectedTextColor,
           ),
         ),
       );
@@ -461,27 +462,16 @@ class _PickerCalendarStandardWidgetState
       // padding: const EdgeInsets.symmetric(horizontal: 8),
       child: SafeArea(
         top: false,
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (args.options.isTopTitleHeader)
-                        TopTitleWidget(options: args.options),
-                      args.headerBuilder(context),
-                      Expanded(child: contents()),
-                    ],
-                  ),
-                ),
-              ),
-              // Menu when keyboard is displayed
-              keyboardMenu(isWide: false),
-            ],
+        child: Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                args.headerBuilder(context),
+                Expanded(child: contents()),
+              ],
+            ),
           ),
         ),
       ),
@@ -491,16 +481,16 @@ class _PickerCalendarStandardWidgetState
   Widget contents() {
     return Stack(
       children: [
-        Visibility(
-          visible: widget.calendarAnimation.value != 0,
-          child: FadeTransition(
-            opacity: widget.calendarAnimation,
-            child: calendar(
-              background: args.options.getBackgroundColor(context),
-              isWide: false,
-            ),
-          ),
-        ),
+        // Visibility(
+        //   visible: widget.calendarAnimation.value != 0,
+        //   child: FadeTransition(
+        //     opacity: widget.calendarAnimation,
+        //     child: calendar(
+        //       background: args.options.getBackgroundColor(context),
+        //       isWide: false,
+        //     ),
+        //   ),
+        // ),
         Visibility(
           visible: widget.calendarAnimation.value != 1,
           child: FadeTransition(

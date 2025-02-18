@@ -289,6 +289,7 @@ Future<DateTime?> showBoardDateTimePicker<T extends BoardDateTimeCommonResult>({
         topLeft: Radius.circular(radius),
         topRight: Radius.circular(radius),
       ),
+      side: BorderSide()
     ),
     clipBehavior: Clip.antiAlias,
     builder: (ctx) {

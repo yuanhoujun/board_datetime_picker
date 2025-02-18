@@ -207,7 +207,9 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
           const Spacer(),
           ElevatedButton(
               onPressed: () {
-                widget.onChangTime(DateTime.now());
+                final now = DateTime.now();
+                widget.onChangeDate(now);
+                widget.onChangTime(now);
               },
               child: const Text("当前时间")),
           const SizedBox(width: 15),

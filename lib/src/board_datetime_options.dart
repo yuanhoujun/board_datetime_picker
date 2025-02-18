@@ -33,6 +33,7 @@ class BoardDateTimeOptions {
     this.useResetButton = false,
     this.useAmpm = false,
     this.separators,
+    this.selectedTextColor
   });
 
   /// #### Picker Background Color
@@ -183,6 +184,8 @@ class BoardDateTimeOptions {
   /// If not specified, no separator will be displayed.
   /// By default, nothing is specified.
   final BoardDateTimePickerSeparators? separators;
+
+  final Color? selectedTextColor;
 }
 
 enum BoardDateButtonType { yesterday, today, tomorrow }

@@ -216,6 +216,8 @@ class _MySampleAppState extends State<MySampleApp> {
         actionButtonTypes: [BoardDateButtonType.today],
         useResetButton: true,
         useAmpm: true,
+        selectedTextColor: Colors.blue,
+        textColor: Colors.grey,
         separators: BoardDateTimePickerSeparators(
           date: PickerSeparator.slash,
           dateTimeSeparatorBuilder: (context, defaultTextStyle) {

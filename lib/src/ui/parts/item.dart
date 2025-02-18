@@ -16,6 +16,7 @@ class ItemWidget extends StatefulWidget {
     required this.onChange,
     required this.foregroundColor,
     required this.textColor,
+    required this.selectedTextColor,
     required this.showedKeyboard,
     required this.wide,
     required this.subTitle,
@@ -26,6 +27,7 @@ class ItemWidget extends StatefulWidget {
   final void Function(int) onChange;
   final Color foregroundColor;
   final Color? textColor;
+  final Color? selectedTextColor;
   final bool Function() showedKeyboard;
   final bool wide;
   final String? subTitle;
@@ -495,13 +497,13 @@ class ItemWidgetState extends State<ItemWidget>
       textStyle = textStyle?.copyWith(
         fontWeight: FontWeight.bold,
         fontSize: 17,
-        color: widget.textColor?.withValues(alpha: isTextEditing ? 0.0 : 1.0),
+        color: widget.selectedTextColor,
       );
     } else {
       textStyle = textStyle?.copyWith(
         fontWeight: FontWeight.bold,
-        fontSize: 14,
-        color: widget.textColor?.withValues(alpha: 0.4),
+        fontSize: 17,
+        color: widget.textColor,
       );
     }
 
