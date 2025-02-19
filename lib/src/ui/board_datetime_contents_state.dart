@@ -276,8 +276,7 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
               minDate,
               maxDate,
               subTitle,
-              withSecond,
-              false,
+              withSecond
             ),
           );
         } else if (pf == 'M') {
@@ -290,8 +289,7 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
               minDate,
               maxDate,
               subTitle,
-              withSecond,
-              false,
+              withSecond
             ),
           );
         } else if (pf == 'd') {
@@ -304,8 +302,7 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
               minDate,
               maxDate,
               subTitle,
-              withSecond,
-              false,
+              withSecond
             ),
           );
         }
@@ -324,8 +321,7 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
           minDate,
           maxDate,
           widget.options.getSubTitle(DateType.hour),
-          withSecond,
-          widget.options.useAmpm && type == DateTimePickerType.time,
+          withSecond
         ),
         initItemOption(
           widget.pickerType,
@@ -334,8 +330,7 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
           minDate,
           maxDate,
           widget.options.getSubTitle(DateType.minute),
-          withSecond,
-          false,
+          withSecond
         ),
       ],
       if (DateTimePickerType.time == type && widget.options.withSecond)
@@ -346,8 +341,7 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
           minDate,
           maxDate,
           widget.options.getSubTitle(DateType.second),
-          withSecond,
-          false,
+          withSecond
         ),
     ];
 

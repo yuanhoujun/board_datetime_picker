@@ -19,8 +19,7 @@ class BoardPickerCustomItemOption extends BoardPickerItemOption {
     required super.minimumDate,
     required super.maximumDate,
     required super.subTitle,
-    required super.withSecond,
-    super.useAmpm = false,
+    required super.withSecond
   });
 
   final List<int> customList;

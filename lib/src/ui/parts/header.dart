@@ -19,7 +19,6 @@ class BoardDateTimeHeader extends StatefulWidget {
     required this.calendarAnimation,
     required this.onChangeDate,
     required this.onChangTime,
-    required this.onKeyboadClose,
     required this.onClose,
     required this.backgroundColor,
     required this.foregroundColor,
@@ -59,9 +58,6 @@ class BoardDateTimeHeader extends StatefulWidget {
 
   /// Callback on datetime change
   final void Function(DateTime) onChangTime;
-
-  /// Keyboard close request
-  final void Function() onKeyboadClose;
 
   /// Picker close request
   final void Function() onClose;

@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:board_datetime_picker/src/ui/parts/item.dart';
 import 'package:board_datetime_picker/src/utils/board_enum.dart';
 import 'package:board_datetime_picker/src/utils/datetime_util.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/parts/focus_node.dart';
@@ -16,8 +15,7 @@ BoardPickerItemOption initItemOption(
   DateTime? minimum,
   DateTime? maximum,
   String? subTitle,
-  bool withSecond,
-  bool useAmpm,
+  bool withSecond
 ) {
   return BoardPickerItemOption.init(
       pickerType,
@@ -26,8 +24,7 @@ BoardPickerItemOption initItemOption(
       minimum,
       maximum,
       subTitle,
-      withSecond: withSecond,
-      useAmpm: useAmpm,
+      withSecond: withSecond
     );
 }
 
@@ -41,9 +38,7 @@ class BoardPickerItemOption {
     required this.minimumDate,
     required this.maximumDate,
     required this.subTitle,
-    required this.withSecond,
-    required this.useAmpm,
-    this.ampm,
+    required this.withSecond
   });
 
   final DateTimePickerType pickerType;
@@ -62,7 +57,6 @@ class BoardPickerItemOption {
 
   /// Keys for date item widget
   final stateKey = GlobalKey<ItemWidgetState>();
-  final ampmStateKey = GlobalKey<AmpmItemWidgetState>();
 
   /// Minimum year that can be specified
   final DateTime minimumDate;
@@ -77,11 +71,6 @@ class BoardPickerItemOption {
   /// Specified by 0 if not specified
   final bool withSecond;
 
-  /// Flag whether the time should be displayed as AM/PM or not
-  final bool useAmpm;
-
-  AmPm? ampm;
-
   /// Constractor
   factory BoardPickerItemOption.init(
     DateTimePickerType pickerType,
@@ -90,12 +79,10 @@ class BoardPickerItemOption {
     DateTime? minimum,
     DateTime? maximum,
     String? subTitle, {
-    bool withSecond = false,
-    required bool useAmpm,
+    bool withSecond = false
   }) {
     Map<int, int> map = {};
     int selected;
-    AmPm? ampm;
 
     // Define specified minimum and maximum dates
     final mi = minimum ?? DateTimeUtil.defaultMinDate;
@@ -123,10 +110,6 @@ class BoardPickerItemOption {
         map = minmaxList(pickerType, DateType.hour, date, mi, ma);
         selected = indexFromValue(date.hour, map);
 
-        // set ampm
-        final hour = map[selected];
-        ampm = DateTimeUtil.ampmContrastMap[hour]?.ampm;
-
         break;
       case DateType.minute:
         map = minmaxList(pickerType, DateType.minute, date, mi, ma);
@@ -147,9 +130,7 @@ class BoardPickerItemOption {
       minimumDate: mi,
       maximumDate: ma,
       subTitle: subTitle,
-      withSecond: withSecond,
-      useAmpm: useAmpm,
-      ampm: ampm,
+      withSecond: withSecond
     );
   }
 
@@ -177,8 +158,7 @@ class BoardPickerItemOption {
       minimumDate: mi,
       maximumDate: ma,
       subTitle: subTitle,
-      withSecond: false,
-      useAmpm: false,
+      withSecond: false
     );
   }
 
@@ -211,10 +191,6 @@ class BoardPickerItemOption {
         break;
       case DateType.hour:
         selectedIndex = _getIndexFromValue(date.hour) ?? 0;
-
-        // set ampm
-        final hour = itemMap[selectedIndex];
-        ampm = DateTimeUtil.ampmContrastMap[hour]?.ampm;
         break;
       case DateType.minute:
         selectedIndex = _getIndexFromValue(date.minute) ?? 0;
@@ -319,64 +295,7 @@ class BoardPickerItemOption {
       selectedIndex = itemMap.keys.last;
     }
 
-    if (useAmpm && type == DateType.hour) {
-      // set ampm
-      final hour = itemMap[selectedIndex];
-      ampm = DateTimeUtil.ampmContrastMap[hour]?.ampm;
-    }
     stateKey.currentState?.updateState(itemMap, selectedIndex);
-
-    if (useAmpm && ampm != null) {
-      ampmStateKey.currentState?.updateState(ampm!);
-    }
-  }
-
-  void updateAmPm(AmPm ap) {
-    if (ampm == ap) return;
-
-    // AMとPMの値に合わせて24時間表記の時間を置き換える
-    final hour = itemMap[selectedIndex];
-
-    Map<int, AmpmCotrast> current;
-    Map<int, AmpmCotrast> next;
-    if (ampm == AmPm.am) {
-      current = DateTimeUtil.ampmContrastAmMap;
-      next = DateTimeUtil.ampmContrastPmMap;
-    } else {
-      current = DateTimeUtil.ampmContrastPmMap;
-      next = DateTimeUtil.ampmContrastAmMap;
-    }
-
-    // 現時点の対比情報を取得する
-    final entry = current[hour];
-    if (entry != null) {
-      // 切り替え先の時間が一致する値を取得する
-      final nextEntry = next.entries.firstWhereOrNull(
-        (e) => e.value.hour == entry.hour,
-      );
-      if (nextEntry != null) {
-        final index = _getIndexFromValue(nextEntry.key);
-
-        if (index != null) {
-          selectedIndex = index;
-        } else if (itemMap.values.first > nextEntry.key) {
-          selectedIndex = 0;
-        } else if (selectedIndex >= itemMap.keys.length) {
-          selectedIndex = itemMap.keys.last;
-        } else {
-          selectedIndex = itemMap.keys.last;
-        }
-      } else {
-        if (itemMap.values.first > entry.index) {
-          selectedIndex = 0;
-        } else if (selectedIndex >= itemMap.keys.length) {
-          selectedIndex = itemMap.keys.last;
-        } else {
-          selectedIndex = itemMap.keys.last;
-        }
-      }
-    }
-    ampm = ap;
   }
 
   static Map<int, int> minmaxList(

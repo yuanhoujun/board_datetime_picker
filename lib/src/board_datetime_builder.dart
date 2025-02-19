@@ -391,19 +391,6 @@ class _SingleBoardDateTimeContentState<T extends BoardDateTimeCommonResult>
   }
 
   Widget get _header {
-    void onCalendar() {
-      if (calendarAnimationController.value == 0.0) {
-        for (final x in itemOptions) {
-          if (x.focusNode.hasFocus) {
-            x.focusNode.unfocus();
-          }
-        }
-        calendarAnimationController.forward();
-      } else if (calendarAnimationController.value == 1.0) {
-        calendarAnimationController.reverse();
-      }
-    }
-
     return BoardDateTimeHeader(
       key: _headerKey,
       wide: isWide,
@@ -413,7 +400,6 @@ class _SingleBoardDateTimeContentState<T extends BoardDateTimeCommonResult>
       calendarAnimation: calendarAnimation,
       onChangeDate: changeDate,
       onChangTime: changeTime,
-      onKeyboadClose: closeKeyboard,
       onClose: close,
       backgroundColor: widget.options.getBackgroundColor(context),
       foregroundColor: widget.options.getForegroundColor(context),
