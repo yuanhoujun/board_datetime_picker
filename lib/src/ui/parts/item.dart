@@ -14,7 +14,6 @@ class ItemWidget extends StatefulWidget {
     required this.foregroundColor,
     required this.textColor,
     required this.selectedTextColor,
-    required this.showedKeyboard,
     required this.wide,
     required this.subTitle
   });
@@ -24,7 +23,6 @@ class ItemWidget extends StatefulWidget {
   final Color foregroundColor;
   final Color? textColor;
   final Color? selectedTextColor;
-  final bool Function() showedKeyboard;
   final bool wide;
   final String? subTitle;
 
@@ -265,13 +263,8 @@ class ItemWidgetState extends State<ItemWidget>
                           },
                           onTapUp: (details) {
                             double clickOffset;
-                            if (widget.showedKeyboard()) {
-                              clickOffset =
-                                  details.localPosition.dy - (itemSize * 3 / 2);
-                            } else {
-                              clickOffset = details.localPosition.dy -
+                           clickOffset = details.localPosition.dy -
                                   (itemSize * wheelCount / 2);
-                            }
                             final currentIndex = scrollController.selectedItem;
                             final indexOffset =
                                 (clickOffset / itemSize).round();

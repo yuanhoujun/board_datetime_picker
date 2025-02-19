@@ -378,7 +378,6 @@ class _SingleBoardDateTimeWidgetState
       initialDate: date,
       minimumDate: widget.minimumDate,
       maximumDate: widget.maximumDate,
-      headerWidget: widget.headerWidget,
       modal: true,
       onCloseModal: () {
         Navigator.of(context).pop(date);

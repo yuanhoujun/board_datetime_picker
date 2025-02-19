@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../board_datetime_options.dart';
 import '../utils/board_enum.dart';
-import 'parts/buttons.dart';
 
 class PickerCalendarArgs {
   final ValueNotifier<DateTime> dateState;
@@ -108,9 +107,6 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
             foregroundColor: args.options.getForegroundColor(context),
             textColor: args.options.textColor,
             onChange: (index) => args.onChangeByPicker(x, index),
-            showedKeyboard: () {
-              return args.keyboardHeightRatio() < 0.5;
-            },
             wide: isWide,
             subTitle: x.subTitle,
             selectedTextColor: args.options.selectedTextColor,
@@ -153,8 +149,6 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
         }
       }
     }
-
-    debugPrint("items size: ${items.length} ###");
 
     return Align(
       alignment: Alignment.topCenter,
@@ -219,51 +213,6 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
         break;
       }
     }
-  }
-
-  Widget keyboardMenu({required bool isWide}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: args.options.getForegroundColor(context).withValues(alpha: 0.9),
-      ),
-      height: keyboardMenuHeight,
-      child: SingleChildScrollView(
-        child: Container(
-          height: keyboardMenuHeight,
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: Row(
-            children: [
-              CustomIconButton(
-                icon: Icons.arrow_back_rounded,
-                bgColor: args.options.getForegroundColor(context),
-                fgColor:
-                    args.options.getTextColor(context)?.withValues(alpha: 0.6),
-                onTap: () => moveFocus(false),
-                // buttonSize: buttonSize,
-              ),
-              const SizedBox(width: 8),
-              CustomIconButton(
-                icon: Icons.arrow_forward_rounded,
-                bgColor: args.options.getForegroundColor(context),
-                fgColor:
-                    args.options.getTextColor(context)?.withValues(alpha: 0.6),
-                onTap: () => moveFocus(true),
-                // buttonSize: buttonSize,
-              ),
-              const Expanded(child: SizedBox()),
-              CustomIconButton(
-                icon: Icons.keyboard_hide_rounded,
-                bgColor: args.options.getForegroundColor(context),
-                fgColor:
-                    args.options.getTextColor(context)?.withValues(alpha: 0.6),
-                onTap: args.onKeyboadClose,
-                // buttonSize: buttonSize,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 
   @override

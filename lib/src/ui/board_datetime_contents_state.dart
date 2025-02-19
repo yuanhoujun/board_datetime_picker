@@ -33,7 +33,6 @@ abstract class BoardDateTimeContent<T extends BoardDateTimeCommonResult>
     this.pickerFocusNode,
     this.onKeyboadClose,
     this.onUpdateByClose,
-    required this.headerWidget,
     required this.onTopActionBuilder,
     required this.customCloseButtonBuilder,
   });
@@ -64,9 +63,6 @@ abstract class BoardDateTimeContent<T extends BoardDateTimeCommonResult>
   /// Callback to update initial values if the date is never changed at close.
   /// Valid only for modal display.
   final void Function(DateTime val, DateTime? val2)? onUpdateByClose;
-
-  /// To be displayed at the top of the picker
-  final Widget? headerWidget;
 
   /// Specify a Widget to be displayed in the action button area externally
   final Widget Function(BuildContext context)? onTopActionBuilder;
@@ -222,21 +218,6 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
     super.dispose();
   }
 
-  /// FocusNode (keyboard) listener
-  void keyboardListener() {
-    // empty
-  }
-
-  /// Year focusNode (keyboard) listener
-  void yearKeyboardListener() {
-    keyboardListener();
-    // Checks the input when the focus is removed and changes to the year
-    // and month of the current time if the value does not exist.
-    final opt = itemOptions.firstWhere((x) => x.type == DateType.year);
-    if (opt.focusNode.hasFocus) return;
-    opt.checkInputField();
-  }
-
   /// Checks and corrects if the specified date is within range
   DateTime rangeDate(DateTime date) {
     DateTime d = date;
@@ -344,14 +325,6 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
           withSecond
         ),
     ];
-
-    for (final x in itemOptions) {
-      if (x.type == DateType.year) {
-        x.focusNode.addListener(yearKeyboardListener);
-      } else {
-        x.focusNode.addListener(keyboardListener);
-      }
-    }
 
     pickerType = type;
   }

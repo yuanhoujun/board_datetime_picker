@@ -201,7 +201,6 @@ class _BoardDateTimeBuilderState<T extends BoardDateTimeCommonResult>
         breakpoint: widget.breakpoint,
         options: widget.options ?? const BoardDateTimeOptions(),
         keyboardHeightNotifier: keyboardHeightNotifier,
-        headerWidget: widget.headerWidget,
         onTopActionBuilder: widget.onTopActionBuilder,
       );
     }
@@ -252,7 +251,6 @@ class SingleBoardDateTimeContent<T extends BoardDateTimeCommonResult>
     super.pickerFocusNode,
     super.onKeyboadClose,
     super.onUpdateByClose,
-    required super.headerWidget,
     required super.onTopActionBuilder,
     super.customCloseButtonBuilder,
   });
