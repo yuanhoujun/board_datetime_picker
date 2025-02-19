@@ -56,7 +56,8 @@ class _MySampleAppState extends State<MySampleApp> {
               child: Column(
                 children: [
                   ElevatedButton(
-                      style: ElevatedButton.styleFrom(fixedSize: const Size(250, 40)),
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(250, 40)),
                       onPressed: () {
                         _showDateTimePicker();
                       },
@@ -69,41 +70,7 @@ class _MySampleAppState extends State<MySampleApp> {
       );
     }
 
-    return BoardDateTimeBuilder<BoardDateTimeCommonResult>(
-      builder: (context) => scaffold(),
-      controller: controller,
-      options: const BoardDateTimeOptions(
-        languages: BoardPickerLanguages.en(),
-        // boardTitle: 'Board Picker',
-        // backgroundColor: Colors.black,
-        // textColor: Colors.white,
-        // foregroundColor: const Color(0xff303030),
-        // activeColor: Colors.blueGrey,
-        // backgroundDecoration: const BoxDecoration(
-        //   gradient: LinearGradient(
-        //     colors: <Color>[
-        //       Color(0xff1A2980),
-        //       Color(0xff26D0CE),
-        //     ],
-        //   ),
-        // ),
-        // pickerSubTitles: BoardDateTimeItemTitles(year: 'year'),
-        // customOptions: BoardPickerCustomOptions.every15minutes(),
-        // customOptions: BoardPickerCustomOptions(
-        //   hours: [0, 6, 12, 18],
-        //   minutes: [0, 15, 30, 45],
-        // ),
-        // weekend: BoardPickerWeekendOptions(
-        //   sundayColor: Colors.yellow,
-        //   saturdayColor: Colors.red,
-        // ),
-      ),
-      // minimumDate: DateTime(2023, 12, 15, 0, 15),
-      // maximumDate: DateTime(2024, 12, 31),
-      onChange: (val) {
-        builderDate.value = val;
-      },
-    );
+    return scaffold();
   }
 
   void _showDateTimePicker() async {
@@ -230,76 +197,76 @@ class PickerItemWidget extends StatelessWidget {
       child: InkWell(
         onTap: () async {
           final result = await showBoardDateTimePicker(
-            context: context,
-            pickerType: pickerType,
-            // initialDate: DateTime.now(),
-            // minimumDate: DateTime.now().add(const Duration(days: 1)),
-            options: const BoardDateTimeOptions(
-              languages: BoardPickerLanguages.en(),
-              startDayOfWeek: DateTime.sunday,
-              pickerFormat: PickerFormat.ymd,
-              // boardTitle: 'Board Picker',
-              // pickerSubTitles: BoardDateTimeItemTitles(year: 'year'),
-              // separators: BoardDateTimePickerSeparators(
-              //   date: PickerSeparator.slash,
-              //   dateTimeSeparatorBuilder: (context, defaultTextStyle) {
-              //     return Container(
-              //       height: 4,
-              //       width: 8,
-              //       decoration: BoxDecoration(
-              //         color: Colors.red,
-              //         borderRadius: BorderRadius.circular(2),
-              //       ),
-              //     );
-              //   },
-              //   time: PickerSeparator.colon,
-              //   timeSeparatorBuilder: (context, defaultTextStyle) {
-              //     return Container(
-              //       height: 8,
-              //       width: 4,
-              //       decoration: BoxDecoration(
-              //         color: Colors.blue,
-              //         borderRadius: BorderRadius.circular(2),
-              //       ),
-              //     );
-              //   },
-              // ),
-            ),
-            // Specify if you want changes in the picker to take effect immediately.
-            valueNotifier: date,
-            controller: controller
-            // onTopActionBuilder: (context) {
-            //   return Padding(
-            //     padding: const EdgeInsets.symmetric(horizontal: 16),
-            //     child: Wrap(
-            //       alignment: WrapAlignment.center,
-            //       spacing: 8,
-            //       children: [
-            //         IconButton(
-            //           onPressed: () {
-            //             controller.changeDateTime(
-            //                 date.value.add(const Duration(days: -1)));
-            //           },
-            //           icon: const Icon(Icons.arrow_back_rounded),
-            //         ),
-            //         IconButton(
-            //           onPressed: () {
-            //             controller.changeDateTime(DateTime.now());
-            //           },
-            //           icon: const Icon(Icons.stop_circle_rounded),
-            //         ),
-            //         IconButton(
-            //           onPressed: () {
-            //             controller.changeDateTime(
-            //                 date.value.add(const Duration(days: 1)));
-            //           },
-            //           icon: const Icon(Icons.arrow_forward_rounded),
-            //         ),
-            //       ],
-            //     ),
-            //   );
-            // },
-          );
+              context: context,
+              pickerType: pickerType,
+              // initialDate: DateTime.now(),
+              // minimumDate: DateTime.now().add(const Duration(days: 1)),
+              options: const BoardDateTimeOptions(
+                languages: BoardPickerLanguages.en(),
+                startDayOfWeek: DateTime.sunday,
+                pickerFormat: PickerFormat.ymd,
+                // boardTitle: 'Board Picker',
+                // pickerSubTitles: BoardDateTimeItemTitles(year: 'year'),
+                // separators: BoardDateTimePickerSeparators(
+                //   date: PickerSeparator.slash,
+                //   dateTimeSeparatorBuilder: (context, defaultTextStyle) {
+                //     return Container(
+                //       height: 4,
+                //       width: 8,
+                //       decoration: BoxDecoration(
+                //         color: Colors.red,
+                //         borderRadius: BorderRadius.circular(2),
+                //       ),
+                //     );
+                //   },
+                //   time: PickerSeparator.colon,
+                //   timeSeparatorBuilder: (context, defaultTextStyle) {
+                //     return Container(
+                //       height: 8,
+                //       width: 4,
+                //       decoration: BoxDecoration(
+                //         color: Colors.blue,
+                //         borderRadius: BorderRadius.circular(2),
+                //       ),
+                //     );
+                //   },
+                // ),
+              ),
+              // Specify if you want changes in the picker to take effect immediately.
+              valueNotifier: date,
+              controller: controller
+              // onTopActionBuilder: (context) {
+              //   return Padding(
+              //     padding: const EdgeInsets.symmetric(horizontal: 16),
+              //     child: Wrap(
+              //       alignment: WrapAlignment.center,
+              //       spacing: 8,
+              //       children: [
+              //         IconButton(
+              //           onPressed: () {
+              //             controller.changeDateTime(
+              //                 date.value.add(const Duration(days: -1)));
+              //           },
+              //           icon: const Icon(Icons.arrow_back_rounded),
+              //         ),
+              //         IconButton(
+              //           onPressed: () {
+              //             controller.changeDateTime(DateTime.now());
+              //           },
+              //           icon: const Icon(Icons.stop_circle_rounded),
+              //         ),
+              //         IconButton(
+              //           onPressed: () {
+              //             controller.changeDateTime(
+              //                 date.value.add(const Duration(days: 1)));
+              //           },
+              //           icon: const Icon(Icons.arrow_forward_rounded),
+              //         ),
+              //       ],
+              //     ),
+              //   );
+              // },
+              );
           if (result != null) {
             date.value = result;
             print('result: $result');
@@ -376,9 +343,7 @@ class PickerMultiSelectionItemWidget extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () async {
-    
-        },
+        onTap: () async {},
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
           child: Row(
