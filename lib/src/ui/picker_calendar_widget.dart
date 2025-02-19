@@ -1,9 +1,6 @@
 import 'package:board_datetime_picker/src/options/board_item_option.dart';
-import 'package:board_datetime_picker/src/ui/parts/calendar.dart';
-import 'package:board_datetime_picker/src/ui/parts/during_calendar.dart';
 import 'package:board_datetime_picker/src/ui/parts/item.dart';
 import 'package:board_datetime_picker/src/utils/board_datetime_options_extension.dart';
-import 'package:board_datetime_picker/src/utils/datetime_util.dart';
 import 'package:flutter/material.dart';
 
 import '../board_datetime_options.dart';
@@ -93,31 +90,7 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
         current.minute == other.minute;
   }
 
-  Widget calendar({required Color? background, required bool isWide}) {
-    return SizedBox(
-      child: SingleCalendarWidget(
-        key: calendarKey,
-        dateState: args.dateState,
-        boxDecoration: BoxDecoration(
-          color: args.options.backgroundDecoration != null && !isWide
-              ? args.options.backgroundDecoration!.color
-              : background,
-        ),
-        onChange: args.onChangeByCalendar,
-        wide: isWide,
-        textColor: args.options.getTextColor(context),
-        activeColor: args.options.getActiveColor(context),
-        activeTextColor: args.options.getActiveTextColor(context),
-        languages: args.options.languages,
-        minimumDate: args.minimumDate ?? DateTimeUtil.defaultMinDate,
-        maximumDate: args.maximumDate ?? DateTimeUtil.defaultMaxDate,
-        startDayOfWeek: args.options.startDayOfWeek,
-        weekend: args.options.weekend ?? const BoardPickerWeekendOptions(),
-        calendarSelectionBuilder: args.options.calendarSelectionBuilder,
-        calendarSelectionRadius: args.options.calendarSelectionRadius,
-      ),
-    );
-  }
+  
 
   Widget picker({required bool isWide}) {
     final separator = options.separators;
@@ -298,93 +271,6 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
   void dispose() {
     dateState.removeListener(changeListener);
     super.dispose();
-  }
-}
-
-class PickerCalendarWideWidget extends PickerCalendarWidget {
-  const PickerCalendarWideWidget({
-    super.key,
-    required super.arguments,
-    required this.closeKeyboard,
-  });
-
-  final void Function() closeKeyboard;
-
-  @override
-  PickerCalendarState<PickerCalendarWideWidget> createState() =>
-      _PickerCalendarWideWidgetState();
-}
-
-class _PickerCalendarWideWidgetState
-    extends PickerCalendarState<PickerCalendarWideWidget> {
-  @override
-  Widget build(BuildContext context) {
-    double height = args.pickerType == DateTimePickerType.time ? 240 : 304;
-
-    Widget child = Row(
-      children: [
-        if (args.pickerType != DateTimePickerType.time) ...[
-          _left(),
-          const SizedBox(width: 16),
-        ],
-        Expanded(
-          child: Column(
-            children: [
-              args.headerBuilder(context),
-              Expanded(child: picker(isWide: true)),
-            ],
-          ),
-        ),
-      ],
-    );
-
-    Widget wrap = child;
-
-    return Container(
-      height: height + args.keyboardHeightRatio() * 172,
-      decoration: args.options.backgroundDecoration ??
-          BoxDecoration(
-            color: args.options.getBackgroundColor(context),
-          ),
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
-      child: SafeArea(
-        top: false,
-        child: wrap,
-      ),
-    );
-  }
-
-  /// Items to be displayed on the left side in wide
-  Widget _left() {
-    return Container(
-      width: 400,
-      decoration: BoxDecoration(
-        color: args.options.getForegroundColor(context),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: calendar(
-              background: args.options.getForegroundColor(context),
-              isWide: true,
-            ),
-          ),
-          Positioned.fill(
-            child: Visibility(
-              visible: args.keyboardHeightRatio() < 0.5,
-              child: DuringCalendarWidget(
-                closeKeyboard: widget.closeKeyboard,
-                backgroundColor: args.options.getForegroundColor(context),
-                textColor: args.options.getTextColor(context),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
 

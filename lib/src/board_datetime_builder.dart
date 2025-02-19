@@ -381,28 +381,16 @@ class _SingleBoardDateTimeContentState<T extends BoardDateTimeCommonResult>
     return Visibility(
       visible: animation.value != 0.0,
       child: SizeTransition(
-        sizeFactor: animation,
-        axis: Axis.vertical,
-        axisAlignment: -1.0,
-        // child: isWide ? _widebuilder() : _standardBuilder(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // if (widget.headerWidget != null) widget.headerWidget!,
-            isWide
-                ? PickerCalendarWideWidget(
-                    arguments: args,
-                    closeKeyboard: closeKeyboard,
-                  )
-                : PickerCalendarStandardWidget(
-                    arguments: args,
-                    calendarAnimationController: calendarAnimationController,
-                    calendarAnimation: calendarAnimation,
-                    pickerFormAnimation: pickerFormAnimation,
-                  ),
-          ],
-        ),
-      ),
+          sizeFactor: animation,
+          axis: Axis.vertical,
+          axisAlignment: -1.0,
+          // child: isWide ? _widebuilder() : _standardBuilder(),
+          child: PickerCalendarStandardWidget(
+            arguments: args,
+            calendarAnimationController: calendarAnimationController,
+            calendarAnimation: calendarAnimation,
+            pickerFormAnimation: pickerFormAnimation,
+          )),
     );
   }
 
