@@ -398,7 +398,6 @@ class _SingleBoardDateTimeContentState<T extends BoardDateTimeCommonResult>
       maximumDate: widget.maximumDate ?? DateTimeUtil.defaultMaxDate,
       modal: widget.modal,
       pickerFocusNode: widget.pickerFocusNode,
-      topMargin: widget.options.topMargin,
       actionButtonTypes: widget.options.actionButtonTypes,
     );
   }

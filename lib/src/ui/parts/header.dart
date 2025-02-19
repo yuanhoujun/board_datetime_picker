@@ -30,7 +30,6 @@ class BoardDateTimeHeader extends StatefulWidget {
       required this.maximumDate,
       required this.modal,
       required this.pickerFocusNode,
-      required this.topMargin,
       required this.actionButtonTypes});
 
   /// Wide mode display flag
@@ -88,9 +87,6 @@ class BoardDateTimeHeader extends StatefulWidget {
 
   /// Picker FocusNode
   final FocusNode? pickerFocusNode;
-
-  /// Header Top margin
-  final double topMargin;
 
   /// List of buttons to select dates.
   final List<BoardDateButtonType> actionButtonTypes;
@@ -164,6 +160,7 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
           const SizedBox(width: 15),
            Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [Text(formattedDate), Text("/"), Text(formattedWeekday)],
@@ -174,6 +171,10 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
           ),
           const Spacer(),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              elevation: 0
+            ),
               onPressed: () {
                 final now = DateTime.now();
                 widget.onChangeDate(now);
@@ -186,142 +187,5 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
     );
 
     return child;
-  }
-}
-
-class BoardDateTimeNoneButtonHeader extends StatefulWidget {
-  const BoardDateTimeNoneButtonHeader(
-      {super.key,
-      required this.options,
-      required this.wide,
-      required this.dateState,
-      required this.pickerType,
-      required this.keyboardHeightRatio,
-      required this.calendarAnimation,
-      required this.onKeyboadClose,
-      required this.onClose,
-      required this.modal,
-      required this.pickerFocusNode});
-
-  final BoardDateTimeOptions options;
-
-  /// Wide mode display flag
-  final bool wide;
-
-  /// [ValueNotifier] to manage the Datetime under selection
-  final ValueNotifier<DateTime> dateState;
-
-  /// Display picker type.
-  final DateTimePickerType pickerType;
-
-  /// Animation that detects and resizes the keyboard display
-  final double keyboardHeightRatio;
-
-  /// Animation to show/hide the calendar
-  final Animation<double> calendarAnimation;
-
-  /// Keyboard close request
-  final void Function() onKeyboadClose;
-
-  /// Picker close request
-  final void Function() onClose;
-
-  /// Modal Flag
-  final bool modal;
-
-  /// Picker FocusNode
-  final FocusNode? pickerFocusNode;
-
-  @override
-  State<BoardDateTimeNoneButtonHeader> createState() =>
-      _BoardDateTimeNoneButtonHeaderState();
-}
-
-class _BoardDateTimeNoneButtonHeaderState
-    extends State<BoardDateTimeNoneButtonHeader> {
-  double get buttonSize => widget.wide ? 40 : 36;
-
-  @override
-  Widget build(BuildContext context) {
-    final child = Container(
-      height: buttonSize + 8,
-      margin: const EdgeInsets.only(top: 12, left: 8, right: 8),
-      child: Row(
-        children: [
-          if (widget.pickerType != DateTimePickerType.time && !widget.wide) ...[
-            CustomIconButton(
-              icon: Icons.view_day_rounded,
-              bgColor: widget.options.getForegroundColor(context),
-              fgColor:
-                  widget.options.getTextColor(context)?.withValues(alpha: 0.8),
-              onTap: () {},
-              buttonSize: buttonSize,
-              child: Transform.rotate(
-                angle: pi * 4 * widget.calendarAnimation.value,
-                child: Icon(
-                  widget.calendarAnimation.value > 0.5
-                      ? Icons.view_day_rounded
-                      : Icons.calendar_month_rounded,
-                  size: 20,
-                ),
-              ),
-            ),
-          ] else ...[
-            SizedBox(width: buttonSize),
-          ],
-          if (widget.keyboardHeightRatio == 0) SizedBox(width: buttonSize + 8),
-          ..._rightButton(),
-        ],
-      ),
-    );
-
-    return GestureDetector(
-      onTapDown: (_) {
-        widget.pickerFocusNode?.requestFocus();
-      },
-      child: child,
-    );
-  }
-
-  List<Widget> _rightButton() {
-    // Widget? closeKeyboard;
-
-    // if (widget.keyboardHeightRatio == 0) {
-    //   closeKeyboard = Visibility(
-    //     visible: widget.keyboardHeightRatio == 0,
-    //     child: CustomIconButton(
-    //       icon: Icons.keyboard_hide_rounded,
-    //       bgColor: widget.options.getForegroundColor(context),
-    //       fgColor: widget.options.getTextColor(context),
-    //       onTap: widget.onKeyboadClose,
-    //       buttonSize: buttonSize,
-    //     ),
-    //   );
-    // }
-
-    Widget child = (widget.modal
-        ? CustomIconButton(
-            icon: Icons.check_circle_rounded,
-            bgColor: widget.options.getActiveColor(context),
-            fgColor: widget.options.getActiveTextColor(context),
-            onTap: widget.onClose,
-            buttonSize: buttonSize,
-          )
-        : CustomIconButton(
-            icon: Icons.close_rounded,
-            bgColor: widget.options.getForegroundColor(context),
-            fgColor:
-                widget.options.getTextColor(context)?.withValues(alpha: 0.8),
-            onTap: widget.onClose,
-            buttonSize: buttonSize,
-          ));
-
-    return [
-      // if (closeKeyboard != null) ...[
-      //   closeKeyboard,
-      //   const SizedBox(width: 8),
-      // ],
-      child,
-    ];
   }
 }

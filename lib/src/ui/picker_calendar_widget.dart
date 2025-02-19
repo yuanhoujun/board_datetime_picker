@@ -259,10 +259,7 @@ class _PickerCalendarStandardWidgetState
       // padding: const EdgeInsets.symmetric(horizontal: 8),
       child: SafeArea(
         top: false,
-        child: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0),
-            child: Column(
+        child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 args.headerBuilder(context),
@@ -284,9 +281,7 @@ class _PickerCalendarStandardWidgetState
                   ],
                 )),
               ],
-            ),
-          ),
-        ),
+            )
       ),
     );
   }
