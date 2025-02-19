@@ -13,7 +13,6 @@ class BoardDateTimeOptions {
     this.activeTextColor,
     this.backgroundDecoration,
     this.languages = const BoardPickerLanguages.en(),
-    this.customOptions,
     this.startDayOfWeek = DateTime.sunday,
     this.pickerFormat = PickerFormat.ymd,
     this.showDateButton = true,
@@ -70,15 +69,6 @@ class BoardDateTimeOptions {
   /// Class for specifying language information to be used in the picker
   final BoardPickerLanguages languages;
 
-  /// Option to specify items to be displayed in the picker by date and time.
-  /// Only time can be specified.
-  ///
-  /// example:
-  /// ```
-  /// customOptions: BoardPickerCustomOptions.every15minutes(),
-  /// ```
-  /// Picker will show [0, 15, 30, 45].
-  final BoardPickerCustomOptions? customOptions;
 
   /// First day of the week in the calendar.
   /// Defailt is `DateTime.sunday`.

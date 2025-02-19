@@ -7,7 +7,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/parts/focus_node.dart';
-import 'board_custom_item_option.dart';
+
 
 BoardPickerItemOption initItemOption(
   DateTimePickerType pickerType,
@@ -15,24 +15,11 @@ BoardPickerItemOption initItemOption(
   DateTime date,
   DateTime? minimum,
   DateTime? maximum,
-  List<int>? customList,
   String? subTitle,
   bool withSecond,
   bool useAmpm,
 ) {
-  if (customList != null && customList.isNotEmpty) {
-    return BoardPickerCustomItemOption.init(
-      pickerType,
-      type,
-      customList,
-      date,
-      minimum,
-      maximum,
-      subTitle,
-      withSecond: withSecond,
-    );
-  } else {
-    return BoardPickerItemOption.init(
+  return BoardPickerItemOption.init(
       pickerType,
       type,
       date,
@@ -42,7 +29,6 @@ BoardPickerItemOption initItemOption(
       withSecond: withSecond,
       useAmpm: useAmpm,
     );
-  }
 }
 
 class BoardPickerItemOption {
