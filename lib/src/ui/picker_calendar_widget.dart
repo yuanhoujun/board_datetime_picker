@@ -123,29 +123,9 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
     final separator = options.separators;
 
     List<Widget> items = [];
-    int year = -1;
-    int month = -1;
-    int day = -1;
-    int hour = -1;
-    int minute = -1;
-
+  
     for (final x in args.listOptions) {
-      if (x.type == DateType.year) {
-        year = x.value;
-      }
-      if (x.type == DateType.month) {
-        month = x.value;
-      }
-      if (x.type == DateType.day) {
-        day = x.value;
-      }
-      if (x.type == DateType.hour) {
-        hour = x.value;
-      }
-      if (x.type == DateType.minute) {
-        minute = x.value;
-      }
-
+  
       items.add(
         Expanded(
           flex: x.flex,
@@ -204,15 +184,10 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
 
     debugPrint("items size: ${items.length} ###");
 
-    return Container(
-      // color: isSelected(year, month, day, hour, minute)
-      //     ? options.selectedItemBackgroundColor
-      //     : Colors.transparent,
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Row(
-          children: items,
-        ),
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Row(
+        children: items,
       ),
     );
   }

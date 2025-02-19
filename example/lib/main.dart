@@ -528,64 +528,6 @@ class PickerBuilderItemWidget extends StatelessWidget {
   }
 }
 
-class InputFieldWidget extends StatelessWidget {
-  InputFieldWidget({super.key});
-
-  final textController = BoardDateTimeTextController();
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        children: [
-          const Expanded(
-            child: Text('InputField'),
-          ),
-          SizedBox(
-            width: 140,
-            height: 44,
-            child: BoardDateTimeInputField(
-              controller: textController,
-              pickerType: DateTimePickerType.datetime,
-              options: const BoardDateTimeOptions(
-                languages: BoardPickerLanguages.en(),
-                // The following parameters are only for `time`
-                // withSecond: true,
-              ),
-              initialDate: DateTime.now(),
-              maximumDate: DateTime(2040),
-              minimumDate: DateTime(1900, 1, 1),
-              // showPickerType: BoardDateTimeFieldPickerType.mini,
-              textStyle: Theme.of(context).textTheme.bodyMedium,
-              onChanged: (date) {
-                print('onchanged: $date');
-              },
-              onFocusChange: (val, date, text) {
-                print('on focus changed date: $val, $date, $text');
-              },
-              onResult: (p0) {},
-              validators: const BoardDateTimeInputFieldValidators(
-                showMessage: true,
-              ),
-              decoration: InputDecoration(
-                fillColor: Theme.of(context)
-                    .scaffoldBackgroundColor
-                    .withValues(alpha: 0.6),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
-                ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 extension DateTimePickerTypeExtension on DateTimePickerType {
   String get title {
     switch (this) {
