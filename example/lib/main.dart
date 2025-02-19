@@ -55,92 +55,6 @@ class _MySampleAppState extends State<MySampleApp> {
               ),
               child: Column(
                 children: [
-                  SectionWidget(
-                    title: 'Form',
-                    items: [InputFieldWidget()],
-                  ),
-                  const SizedBox(height: 24),
-                  SectionWidget(
-                    title: 'Picker (Single Selection)',
-                    items: [
-                      PickerItemWidget(
-                        pickerType: DateTimePickerType.datetime,
-                      ),
-                      PickerItemWidget(
-                        pickerType: DateTimePickerType.date,
-                      ),
-                      PickerItemWidget(
-                        pickerType: DateTimePickerType.time,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  SectionWidget(
-                    title: 'Picker (Multi Selection)',
-                    items: [
-                      PickerMultiSelectionItemWidget(
-                        pickerType: DateTimePickerType.datetime,
-                      ),
-                      PickerMultiSelectionItemWidget(
-                        pickerType: DateTimePickerType.date,
-                      ),
-                      PickerMultiSelectionItemWidget(
-                        pickerType: DateTimePickerType.time,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  SectionWidget(
-                    title: 'Builder Picker',
-                    items: [
-                      PickerBuilderItemWidget(
-                        pickerType: DateTimePickerType.datetime,
-                        date: builderDate,
-                        onOpen: () async {
-                          controller.open(
-                            DateTimePickerType.datetime,
-                            builderDate.value,
-                          );
-                          await Future.delayed(
-                              const Duration(milliseconds: 300));
-                          scrollController.animateTo(
-                            scrollController.position.maxScrollExtent,
-                            duration: const Duration(milliseconds: 100),
-                            curve: Curves.easeInOut,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  SectionWidget(
-                    title: 'Picker (Custom close button)',
-                    items: [
-                      PickerItemWidget(
-                        pickerType: DateTimePickerType.datetime,
-                        customCloseButtonBuilder: (context, isModal, onClose) {
-                          return TextButton.icon(
-                            onPressed: onClose,
-                            icon: const Icon(Icons.check_circle_outline),
-                            iconAlignment: IconAlignment.end,
-                            label: const Text('Close😉'),
-                          );
-                        },
-                      ),
-                      PickerMultiSelectionItemWidget(
-                        pickerType: DateTimePickerType.datetime,
-                        customCloseButtonBuilder: (context, isModal, onClose) {
-                          return TextButton.icon(
-                            onPressed: onClose,
-                            icon: const Icon(Icons.check_circle_outline),
-                            iconAlignment: IconAlignment.end,
-                            label: const Text('Close😉'),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(fixedSize: Size(250, 40)),
                       onPressed: () {
@@ -208,6 +122,8 @@ class _MySampleAppState extends State<MySampleApp> {
         withSecond: false,
         foregroundColor: Colors.transparent,
         topMargin: 0,
+        activeColor: Colors.red,
+        activeTextColor: Colors.yellow,
         customOptions: false
             ? BoardPickerCustomOptions(
                 seconds: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55],
@@ -218,6 +134,7 @@ class _MySampleAppState extends State<MySampleApp> {
         useAmpm: true,
         selectedTextColor: Colors.blue,
         textColor: Colors.grey,
+        selectedItemBackgroundColor: Colors.red,
         separators: BoardDateTimePickerSeparators(
           date: PickerSeparator.slash,
           dateTimeSeparatorBuilder: (context, defaultTextStyle) {

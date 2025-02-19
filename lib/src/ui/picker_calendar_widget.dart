@@ -30,24 +30,23 @@ class PickerCalendarArgs {
   final void Function(MultiCurrentDateType)? onChangeDateType;
   final void Function() onKeyboadClose;
 
-  const PickerCalendarArgs({
-    required this.dateState,
-    required this.options,
-    required this.pickerType,
-    required this.listOptions,
-    required this.minimumDate,
-    required this.maximumDate,
-    required this.headerBuilder,
-    required this.onChangeByCalendar,
-    required this.onChangeByPicker,
-    required this.keyboardHeightRatio,
-    required this.multiple,
-    this.startDate,
-    this.endDate,
-    this.onMultiChange,
-    this.onChangeDateType,
-    required this.onKeyboadClose
-  });
+  const PickerCalendarArgs(
+      {required this.dateState,
+      required this.options,
+      required this.pickerType,
+      required this.listOptions,
+      required this.minimumDate,
+      required this.maximumDate,
+      required this.headerBuilder,
+      required this.onChangeByCalendar,
+      required this.onChangeByPicker,
+      required this.keyboardHeightRatio,
+      required this.multiple,
+      this.startDate,
+      this.endDate,
+      this.onMultiChange,
+      this.onChangeDateType,
+      required this.onKeyboadClose});
 }
 
 abstract class PickerCalendarWidget extends StatefulWidget {
@@ -71,6 +70,32 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
   PickerCalendarArgs get args => widget.arguments;
 
   BoardDateTimeOptions get options => args.options;
+
+  ValueNotifier<DateTime> get dateState => args.dateState;
+
+  late DateTime selectedDate;
+
+  @mustCallSuper
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = dateState.value;
+    dateState.addListener(changeListener);
+  }
+
+  void changeListener() {
+    setState(() {
+      selectedDate = dateState.value;
+    });
+  }
+
+  bool isSameTime(DateTime current, DateTime other) {
+    return current.year == other.year &&
+        current.month == other.month &&
+        current.day == other.day &&
+        current.hour == other.hour &&
+        current.minute == other.minute;
+  }
 
   Widget calendar({required Color? background, required bool isWide}) {
     if (args.multiple) {
@@ -133,7 +158,29 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
     final separator = options.separators;
 
     List<Widget> items = [];
+    int year = -1;
+    int month = -1;
+    int day = -1;
+    int hour = -1;
+    int minute = -1;
+
     for (final x in args.listOptions) {
+      if (x.type == DateType.year) {
+        year = x.value;
+      }
+      if (x.type == DateType.month) {
+        month = x.value;
+      }
+      if (x.type == DateType.day) {
+        day = x.value;
+      }
+      if (x.type == DateType.hour) {
+        hour = x.value;
+      }
+      if (x.type == DateType.minute) {
+        minute = x.value;
+      }
+
       items.add(
         Expanded(
           flex: x.flex,
@@ -190,33 +237,12 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
       }
     }
 
-    // AM/PM
-    if (DateTimePickerType.time == args.pickerType && args.options.useAmpm) {
-      final hourOption = args.listOptions.firstWhere(
-        (e) => e.type == DateType.hour,
-      );
-      items.insert(
-        0,
-        Expanded(
-          child: AmpmItemWidget(
-            key: hourOption.ampmStateKey,
-            initialValue: hourOption.ampm ?? AmPm.am,
-            onChange: (val) {
-              hourOption.updateAmPm(val);
-              args.onChangeByPicker(hourOption, hourOption.selectedIndex);
-            },
-            foregroundColor: args.options.getForegroundColor(context),
-            textColor: args.options.getTextColor(context),
-            wide: isWide,
-            showedKeyboard: () {
-              return args.keyboardHeightRatio() < 0.5;
-            },
-          ),
-        ),
-      );
-    }
+    debugPrint("items size: ${items.length} ###");
 
-    return SizedBox(
+    return Container(
+      color: isSelected(year, month, day, hour, minute)
+          ? options.selectedItemBackgroundColor
+          : Colors.transparent,
       child: Align(
         alignment: Alignment.topCenter,
         child: Row(
@@ -224,6 +250,14 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
         ),
       ),
     );
+  }
+
+  bool isSelected(int year, int month, int day, int hour, int minute) {
+    return selectedDate.year == year &&
+        selectedDate.month == month &&
+        selectedDate.day == day &&
+        selectedDate.hour == hour &&
+        selectedDate.minute == minute;
   }
 
   /// Function to return a list of DateType to insert a separator from PickerFormat.
@@ -319,6 +353,12 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
       ),
     );
   }
+
+  @override
+  void dispose() {
+    dateState.removeListener(changeListener);
+    super.dispose();
+  }
 }
 
 class PickerCalendarWideWidget extends PickerCalendarWidget {
@@ -359,15 +399,6 @@ class _PickerCalendarWideWidgetState
     );
 
     Widget wrap = child;
-    if (args.options.isTopTitleHeader) {
-      height += 40;
-      wrap = Column(
-        children: [
-          TopTitleWidget(options: args.options),
-          Expanded(child: child),
-        ],
-      );
-    }
 
     return Container(
       height: height + args.keyboardHeightRatio() * 172,
@@ -438,6 +469,12 @@ class PickerCalendarStandardWidget extends PickerCalendarWidget {
 class _PickerCalendarStandardWidgetState
     extends PickerCalendarState<PickerCalendarStandardWidget> {
   @override
+  void initState() {
+    widget.arguments.dateState.addListener(changeListener);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: widget.calendarAnimationController,
@@ -500,5 +537,11 @@ class _PickerCalendarStandardWidgetState
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    widget.arguments.dateState.removeListener(changeListener);
+    super.dispose();
   }
 }
