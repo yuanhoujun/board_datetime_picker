@@ -1,9 +1,6 @@
 import 'dart:async';
 
 import 'package:board_datetime_picker/src/options/board_item_option.dart';
-import 'package:board_datetime_picker/src/utils/board_enum.dart';
-import 'package:board_datetime_picker/src/utils/datetime_util.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,8 +16,7 @@ class ItemWidget extends StatefulWidget {
     required this.selectedTextColor,
     required this.showedKeyboard,
     required this.wide,
-    required this.subTitle,
-    required this.inputable,
+    required this.subTitle
   });
 
   final BoardPickerItemOption option;
@@ -31,7 +27,6 @@ class ItemWidget extends StatefulWidget {
   final bool Function() showedKeyboard;
   final bool wide;
   final String? subTitle;
-  final bool inputable;
 
   @override
   State<ItemWidget> createState() => ItemWidgetState();
@@ -57,7 +52,6 @@ class ItemWidgetState extends State<ItemWidget>
   Map<int, int> map = {};
 
   int selectedIndex = 0;
-  bool isTextEditing = false;
 
   /// Timer for debouncing process
   Timer? debouceTimer;
@@ -123,11 +117,6 @@ class ItemWidgetState extends State<ItemWidget>
 
   void focusListener() {
     changeText(textController.text, toDefault: true);
-    if (widget.option.focusNode.hasFocus && !isTextEditing) {
-      setState(() {
-        isTextEditing = true;
-      });
-    }
   }
 
   void onChange(int index) {
@@ -308,17 +297,7 @@ class ItemWidgetState extends State<ItemWidget>
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: widget.inputable
-                          ? () {
-                              setState(() {
-                                isTextEditing = true;
-                              });
-                              Future.delayed(const Duration(milliseconds: 10))
-                                  .then((_) {
-                                widget.option.focusNode.requestFocus();
-                              });
-                            }
-                          : null,
+                      onTap: null,
                       borderRadius: borderRadius,
                       child: SizedBox(
                         height: itemSize,
@@ -326,37 +305,7 @@ class ItemWidgetState extends State<ItemWidget>
                       ),
                     ),
                   ),
-                ),
-                Visibility(
-                  visible: isTextEditing,
-                  maintainState: widget.inputable,
-                  child: _centerAlign(
-                    TextField(
-                      key: ValueKey(widget.option.type.name),
-                      controller: textController,
-                      focusNode: widget.option.focusNode,
-                      keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.done,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(bottom: 4, left: 2),
-                      ),
-                      enabled: widget.inputable,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                            color: widget.textColor,
-                          ),
-                      textAlign: TextAlign.center,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(
-                            widget.option.maxLength),
-                        // AllowTextInputFormatter(map.values.toList()),
-                      ],
-                      onChanged: onChangeText,
-                    ),
-                  ),
-                ),
+                )
               ],
             ),
           ),
@@ -427,17 +376,6 @@ class ItemWidgetState extends State<ItemWidget>
         wheelDebouceTimer = null;
         toAnimateChange(index);
       },
-    );
-  }
-
-  Widget _centerAlign(Widget child) {
-    return Align(
-      alignment: Alignment.center,
-      child: SizedBox(
-        height: itemSize,
-        width: double.infinity,
-        child: child,
-      ),
     );
   }
 
