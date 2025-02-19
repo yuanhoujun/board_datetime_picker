@@ -114,6 +114,7 @@ class _MySampleAppState extends State<MySampleApp> {
       // initialDate: DateTime.now(),
       // minimumDate: DateTime.now().add(const Duration(days: 1)),
       options: BoardDateTimeOptions(
+        backgroundColor: Colors.white,
         languages: const BoardPickerLanguages.en(),
         startDayOfWeek: DateTime.sunday,
         pickerFormat: PickerFormat.ymd,
