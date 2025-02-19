@@ -10,12 +10,6 @@ import '../utils/board_enum.dart';
 import '../utils/datetime_util.dart';
 import '../utils/board_datetime_options_extension.dart';
 
-typedef CloseButtonBuilder = Widget Function(
-  BuildContext context,
-  bool isModal,
-  void Function() onClose,
-);
-
 abstract class BoardDateTimeContent<T extends BoardDateTimeCommonResult>
     extends StatefulWidget {
   const BoardDateTimeContent({
@@ -31,9 +25,7 @@ abstract class BoardDateTimeContent<T extends BoardDateTimeCommonResult>
     this.onCreatedDateState,
     this.pickerFocusNode,
     this.onKeyboadClose,
-    this.onUpdateByClose,
-    required this.onTopActionBuilder,
-    required this.customCloseButtonBuilder,
+    this.onUpdateByClose
   });
 
   final double breakpoint;
@@ -59,11 +51,6 @@ abstract class BoardDateTimeContent<T extends BoardDateTimeCommonResult>
   /// Callback to update initial values if the date is never changed at close.
   /// Valid only for modal display.
   final void Function(DateTime val, DateTime? val2)? onUpdateByClose;
-
-  /// Specify a Widget to be displayed in the action button area externally
-  final Widget Function(BuildContext context)? onTopActionBuilder;
-
-  final CloseButtonBuilder? customCloseButtonBuilder;
 }
 
 abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,

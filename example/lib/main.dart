@@ -157,15 +157,6 @@ class _MySampleAppState extends State<MySampleApp> {
       // Specify if you want changes in the picker to take effect immediately.
       valueNotifier: null,
       controller: controller,
-      // headerWidget: Container(
-      //   height: 50,
-      //   width: double.infinity,
-      //   color: Colors.red,
-      // ),
-      customCloseButtonBuilder:
-          (BuildContext context, bool isModal, void Function() onClose) {
-        return TextButton(onPressed: () {}, child: const Text("关闭"));
-      },
       onTopActionBuilder: (context) {
         return Container(
           height: 40,
@@ -276,8 +267,7 @@ class PickerItemWidget extends StatelessWidget {
             ),
             // Specify if you want changes in the picker to take effect immediately.
             valueNotifier: date,
-            controller: controller,
-            customCloseButtonBuilder: customCloseButtonBuilder,
+            controller: controller
             // onTopActionBuilder: (context) {
             //   return Padding(
             //     padding: const EdgeInsets.symmetric(horizontal: 16),

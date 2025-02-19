@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'board_datetime_builder.dart';
 import 'board_datetime_options.dart';
-import 'ui/board_datetime_contents_state.dart';
 import 'utils/board_datetime_result.dart';
 import 'utils/board_enum.dart';
 
@@ -46,8 +45,7 @@ Future<DateTime?> showBoardDateTimePickerForDateTime({
   bool isDismissible = true,
   bool enableDrag = true,
   bool? showDragHandle,
-  bool useSafeArea = false,
-  CloseButtonBuilder? customCloseButtonBuilder,
+  bool useSafeArea = false
 }) async {
   return await showBoardDateTimePicker<BoardDateTimeResult>(
     context: context,
@@ -68,8 +66,7 @@ Future<DateTime?> showBoardDateTimePickerForDateTime({
     isDismissible: isDismissible,
     enableDrag: enableDrag,
     showDragHandle: showDragHandle,
-    useSafeArea: useSafeArea,
-    customCloseButtonBuilder: customCloseButtonBuilder,
+    useSafeArea: useSafeArea
   );
 }
 
@@ -115,9 +112,7 @@ Future<DateTime?> showBoardDateTimePickerForDate({
   bool isDismissible = true,
   bool enableDrag = true,
   bool? showDragHandle,
-  bool useSafeArea = false,
-  Widget Function(BuildContext context)? onTopActionBuilder,
-  CloseButtonBuilder? customCloseButtonBuilder,
+  bool useSafeArea = false
 }) async {
   return await showBoardDateTimePicker<BoardDateResult>(
       context: context,
@@ -140,9 +135,7 @@ Future<DateTime?> showBoardDateTimePickerForDate({
       isDismissible: isDismissible,
       enableDrag: enableDrag,
       showDragHandle: showDragHandle,
-      useSafeArea: useSafeArea,
-      onTopActionBuilder: onTopActionBuilder,
-      customCloseButtonBuilder: customCloseButtonBuilder);
+      useSafeArea: useSafeArea);
 }
 
 /// Show a Modal Picker for Time bottom sheet.
@@ -187,9 +180,7 @@ Future<DateTime?> showBoardDateTimePickerForTime({
   bool isDismissible = true,
   bool enableDrag = true,
   bool? showDragHandle,
-  bool useSafeArea = false,
-  Widget Function(BuildContext context)? onTopActionBuilder,
-  CloseButtonBuilder? customCloseButtonBuilder,
+  bool useSafeArea = false
 }) async {
   return await showBoardDateTimePicker<BoardTimeResult>(
     context: context,
@@ -212,9 +203,7 @@ Future<DateTime?> showBoardDateTimePickerForTime({
     isDismissible: isDismissible,
     enableDrag: enableDrag,
     showDragHandle: showDragHandle,
-    useSafeArea: useSafeArea,
-    onTopActionBuilder: onTopActionBuilder,
-    customCloseButtonBuilder: customCloseButtonBuilder,
+    useSafeArea: useSafeArea
   );
 }
 
@@ -265,8 +254,7 @@ Future<DateTime?> showBoardDateTimePicker<T extends BoardDateTimeCommonResult>({
   bool enableDrag = true,
   bool? showDragHandle,
   bool useSafeArea = false,
-  Widget Function(BuildContext context)? onTopActionBuilder,
-  CloseButtonBuilder? customCloseButtonBuilder,
+  Widget Function(BuildContext context)? onTopActionBuilder
 }) async {
   final opt = options ?? const BoardDateTimeOptions();
 
@@ -307,9 +295,7 @@ Future<DateTime?> showBoardDateTimePicker<T extends BoardDateTimeCommonResult>({
           valueNotifier: valueNotifier,
           headerWidget: headerWidget,
           onChanged: onChanged,
-          onResult: (val) => onResult?.call(val as T),
-          onTopActionBuilder: onTopActionBuilder,
-          customCloseButtonBuilder: customCloseButtonBuilder,
+          onResult: (val) => onResult?.call(val as T)
         ),
       );
     },
@@ -328,9 +314,7 @@ class _SingleBoardDateTimeWidget extends StatefulWidget {
     this.valueNotifier,
     this.onChanged,
     this.onResult,
-    required this.headerWidget,
-    required this.onTopActionBuilder,
-    required this.customCloseButtonBuilder,
+    required this.headerWidget
   });
 
   final BoardDateTimeController? controller;
@@ -344,8 +328,6 @@ class _SingleBoardDateTimeWidget extends StatefulWidget {
   final Widget? headerWidget;
   final void Function(DateTime)? onChanged;
   final void Function(BoardDateTimeCommonResult)? onResult;
-  final Widget Function(BuildContext context)? onTopActionBuilder;
-  final CloseButtonBuilder? customCloseButtonBuilder;
 
   @override
   State<_SingleBoardDateTimeWidget> createState() =>
@@ -385,9 +367,7 @@ class _SingleBoardDateTimeWidgetState
       onUpdateByClose: (val, val2) {
         date = val;
         widget.valueNotifier?.value = val;
-      },
-      onTopActionBuilder: widget.onTopActionBuilder,
-      customCloseButtonBuilder: widget.customCloseButtonBuilder,
+      }
     );
   }
 }

@@ -31,9 +31,7 @@ class BoardDateTimeHeader extends StatefulWidget {
     required this.modal,
     required this.pickerFocusNode,
     required this.topMargin,
-    required this.onTopActionBuilder,
-    required this.actionButtonTypes,
-    required this.customCloseButtonBuilder,
+    required this.actionButtonTypes
   });
 
   /// Wide mode display flag
@@ -95,14 +93,8 @@ class BoardDateTimeHeader extends StatefulWidget {
   /// Header Top margin
   final double topMargin;
 
-  /// Specify a Widget to be displayed in the action button area externally
-  final Widget Function(BuildContext context)? onTopActionBuilder;
-
   /// List of buttons to select dates.
   final List<BoardDateButtonType> actionButtonTypes;
-
-  /// Custom Close Button Builder
-  final CloseButtonBuilder? customCloseButtonBuilder;
 
   @override
   State<BoardDateTimeHeader> createState() => BoardDateTimeHeaderState();
@@ -197,8 +189,7 @@ class BoardDateTimeNoneButtonHeader extends StatefulWidget {
     required this.onKeyboadClose,
     required this.onClose,
     required this.modal,
-    required this.pickerFocusNode,
-    this.customCloseButtonBuilder,
+    required this.pickerFocusNode
   });
 
   final BoardDateTimeOptions options;
@@ -229,9 +220,6 @@ class BoardDateTimeNoneButtonHeader extends StatefulWidget {
 
   /// Picker FocusNode
   final FocusNode? pickerFocusNode;
-
-  // Custom Close Button Builder
-  final CloseButtonBuilder? customCloseButtonBuilder;
 
   @override
   State<BoardDateTimeNoneButtonHeader> createState() =>
@@ -300,11 +288,7 @@ class _BoardDateTimeNoneButtonHeaderState
     //   );
     // }
 
-    Widget child = widget.customCloseButtonBuilder?.call(
-          context,
-          widget.modal,
-          widget.onClose,
-        ) ??
+    Widget child =
         (widget.modal
             ? CustomIconButton(
                 icon: Icons.check_circle_rounded,

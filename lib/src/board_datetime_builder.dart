@@ -105,9 +105,7 @@ class BoardDateTimeBuilder<T extends BoardDateTimeCommonResult>
     this.breakpoint = 800,
     this.options,
     this.resizeBottom = true,
-    this.headerWidget,
-    this.onTopActionBuilder,
-    this.customCloseButtonBuilder,
+    this.headerWidget
   });
 
   /// #### [DateTimeBuilder] Builder
@@ -147,11 +145,6 @@ class BoardDateTimeBuilder<T extends BoardDateTimeCommonResult>
 
   /// This widget should be displayed above the picker.
   final Widget? headerWidget;
-
-  /// Specify a Widget to be displayed in the action button area externally
-  final Widget Function(BuildContext context)? onTopActionBuilder;
-
-  final CloseButtonBuilder? customCloseButtonBuilder;
 
   @override
   State<BoardDateTimeBuilder> createState() => _BoardDateTimeBuilderState<T>();
@@ -200,8 +193,7 @@ class _BoardDateTimeBuilderState<T extends BoardDateTimeCommonResult>
         maximumDate: widget.maximumDate,
         breakpoint: widget.breakpoint,
         options: widget.options ?? const BoardDateTimeOptions(),
-        keyboardHeightNotifier: keyboardHeightNotifier,
-        onTopActionBuilder: widget.onTopActionBuilder,
+        keyboardHeightNotifier: keyboardHeightNotifier
       );
     }
 
@@ -249,9 +241,7 @@ class SingleBoardDateTimeContent<T extends BoardDateTimeCommonResult>
     super.onCreatedDateState,
     super.pickerFocusNode,
     super.onKeyboadClose,
-    super.onUpdateByClose,
-    required super.onTopActionBuilder,
-    super.customCloseButtonBuilder,
+    super.onUpdateByClose
   });
 
   final void Function(DateTime)? onChange;
@@ -409,9 +399,7 @@ class _SingleBoardDateTimeContentState<T extends BoardDateTimeCommonResult>
       modal: widget.modal,
       pickerFocusNode: widget.pickerFocusNode,
       topMargin: widget.options.topMargin,
-      onTopActionBuilder: widget.onTopActionBuilder,
       actionButtonTypes: widget.options.actionButtonTypes,
-      customCloseButtonBuilder: widget.customCloseButtonBuilder,
     );
   }
 }
