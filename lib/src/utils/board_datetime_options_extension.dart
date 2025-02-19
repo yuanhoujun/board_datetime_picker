@@ -19,9 +19,6 @@ extension BoardDateTimeOptionsExtension on BoardDateTimeOptions {
   Color getActiveTextColor(BuildContext context) =>
       activeTextColor ?? Colors.white;
 
-  bool get isTopTitleHeader =>
-      boardTitle != null && boardTitle!.isNotEmpty && showDateButton;
-
   /// Obtain the title to be displayed on the item.
   /// Correct with default value only if it exists in the middle.
   String? getSubTitle(DateType type) {

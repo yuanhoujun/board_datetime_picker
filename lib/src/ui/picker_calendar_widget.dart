@@ -311,9 +311,6 @@ class _PickerCalendarStandardWidgetState
   Widget builder(BuildContext context, Widget? child) {
     double height = 200 + (220 * widget.calendarAnimation.value);
 
-    if (args.options.isTopTitleHeader) {
-      height += 40;
-    }
     height += keyboardMenuHeight;
 
     return Container(

@@ -378,20 +378,16 @@ class _SingleBoardDateTimeContentState<T extends BoardDateTimeCommonResult>
       keyboardHeightRatio: () => keyboardHeightRatio,
     );
 
-    return Visibility(
-      visible: animation.value != 0.0,
-      child: SizeTransition(
+    return SizeTransition(
           sizeFactor: animation,
           axis: Axis.vertical,
           axisAlignment: -1.0,
-          // child: isWide ? _widebuilder() : _standardBuilder(),
           child: PickerCalendarStandardWidget(
             arguments: args,
             calendarAnimationController: calendarAnimationController,
             calendarAnimation: calendarAnimation,
             pickerFormAnimation: pickerFormAnimation,
-          )),
-    );
+          ));
   }
 
   Widget get _header {
@@ -408,22 +404,6 @@ class _SingleBoardDateTimeContentState<T extends BoardDateTimeCommonResult>
       }
     }
 
-    if (!widget.options.showDateButton) {
-      return BoardDateTimeNoneButtonHeader(
-        options: widget.options,
-        wide: isWide,
-        dateState: dateState,
-        pickerType: pickerType,
-        keyboardHeightRatio: keyboardHeightRatio,
-        calendarAnimation: calendarAnimation,
-        onCalendar: onCalendar,
-        onKeyboadClose: closeKeyboard,
-        onClose: close,
-        modal: widget.modal,
-        pickerFocusNode: widget.pickerFocusNode,
-      );
-    }
-
     return BoardDateTimeHeader(
       key: _headerKey,
       wide: isWide,
@@ -431,7 +411,6 @@ class _SingleBoardDateTimeContentState<T extends BoardDateTimeCommonResult>
       pickerType: pickerType,
       keyboardHeightRatio: keyboardHeightRatio,
       calendarAnimation: calendarAnimation,
-      onCalendar: onCalendar,
       onChangeDate: changeDate,
       onChangTime: changeTime,
       onKeyboadClose: closeKeyboard,

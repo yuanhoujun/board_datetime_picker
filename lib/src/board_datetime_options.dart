@@ -15,7 +15,6 @@ class BoardDateTimeOptions {
     this.languages = const BoardPickerLanguages.en(),
     this.startDayOfWeek = DateTime.sunday,
     this.pickerFormat = PickerFormat.ymd,
-    this.showDateButton = true,
     this.boardTitle,
     this.boardTitleTextStyle,
     this.pickerSubTitles,
@@ -89,13 +88,6 @@ class BoardDateTimeOptions {
   /// Default is `PickerFormat.ymd`
   ///
   final BoardDateTimePickerFormat pickerFormat;
-
-  /// Flag whether or not the button to set the date should be displayed.
-  /// If false, do not display buttons such as "today", "tomorrow", etc.
-  /// at the top of the picker, only the action buttons. Default is true.
-  ///
-  /// When setting to false, it is recommended to specify the title together.
-  final bool showDateButton;
 
   /// Title to be displayed at the top of the picker
   final String? boardTitle;

@@ -17,7 +17,6 @@ class BoardDateTimeHeader extends StatefulWidget {
     required this.pickerType,
     required this.keyboardHeightRatio,
     required this.calendarAnimation,
-    required this.onCalendar,
     required this.onChangeDate,
     required this.onChangTime,
     required this.onKeyboadClose,
@@ -54,9 +53,6 @@ class BoardDateTimeHeader extends StatefulWidget {
 
   /// Animation to show/hide the calendar
   final Animation<double> calendarAnimation;
-
-  /// Callback show calendar
-  final void Function() onCalendar;
 
   /// Callback on date change
   final void Function(DateTime) onChangeDate;
@@ -218,7 +214,6 @@ class BoardDateTimeNoneButtonHeader extends StatefulWidget {
     required this.pickerType,
     required this.keyboardHeightRatio,
     required this.calendarAnimation,
-    required this.onCalendar,
     required this.onKeyboadClose,
     required this.onClose,
     required this.modal,
@@ -242,9 +237,6 @@ class BoardDateTimeNoneButtonHeader extends StatefulWidget {
 
   /// Animation to show/hide the calendar
   final Animation<double> calendarAnimation;
-
-  /// Callback show calendar
-  final void Function() onCalendar;
 
   /// Keyboard close request
   final void Function() onKeyboadClose;
@@ -283,7 +275,7 @@ class _BoardDateTimeNoneButtonHeaderState
               bgColor: widget.options.getForegroundColor(context),
               fgColor:
                   widget.options.getTextColor(context)?.withValues(alpha: 0.8),
-              onTap: widget.onCalendar,
+              onTap: () {},
               buttonSize: buttonSize,
               child: Transform.rotate(
                 angle: pi * 4 * widget.calendarAnimation.value,
