@@ -10,8 +10,6 @@ export 'src/board_datetime_input_field.dart'
         BoardDateTimeInputFieldValidators,
         BoardDateTimeFieldPickerType,
         BoardDateTimeTextController;
-export 'src/board_datetime_multi_builder.dart'
-    show BoardMultiDateTimeController;
 export 'src/board_datetime_options.dart'
     show
         BoardDateTimeOptions,

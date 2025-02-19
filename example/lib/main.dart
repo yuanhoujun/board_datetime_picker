@@ -394,56 +394,13 @@ class PickerMultiSelectionItemWidget extends StatelessWidget {
     DateTime.now().add(const Duration(days: 7)),
   );
 
-  final BoardMultiDateTimeController controller =
-      BoardMultiDateTimeController();
-
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: () async {
-          final result = await showBoardDateTimeMultiPicker(
-            context: context,
-            controller: controller,
-            pickerType: pickerType,
-            // minimumDate: DateTime.now().add(const Duration(days: 1)),
-            startDate: start.value,
-            endDate: end.value,
-            options: const BoardDateTimeOptions(
-              languages: BoardPickerLanguages.en(),
-              startDayOfWeek: DateTime.sunday,
-              pickerFormat: PickerFormat.ymd,
-              useAmpm: false,
-              // topMargin: 0,
-            ),
-            customCloseButtonBuilder: customCloseButtonBuilder,
-            // headerWidget: Container(
-            //   height: 60,
-            //   margin: const EdgeInsets.all((8)),
-            //   decoration: BoxDecoration(
-            //     color: Colors.white,
-            //     border: Border.all(color: Colors.red, width: 4),
-            //     borderRadius: BorderRadius.circular(24),
-            //   ),
-            //   alignment: Alignment.center,
-            //   child: Text(
-            //     'Header Widget',
-            //     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.red,
-            //         ),
-            //   ),
-            // ),
-            // onTopActionBuilder: (context) {
-            //   return const SizedBox();
-            // },
-          );
-          if (result != null) {
-            start.value = result.start;
-            end.value = result.end;
-          }
-          print('result: ${start.value} - ${end.value}');
+    
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),

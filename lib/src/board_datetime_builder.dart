@@ -371,7 +371,6 @@ class _SingleBoardDateTimeContentState<T extends BoardDateTimeCommonResult>
       listOptions: itemOptions,
       minimumDate: widget.minimumDate,
       maximumDate: widget.maximumDate,
-      multiple: false,
       headerBuilder: (ctx) => _header,
       onChangeByCalendar: changeDate,
       onChangeByPicker: onChangeByPicker,
