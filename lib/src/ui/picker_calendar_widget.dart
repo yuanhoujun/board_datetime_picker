@@ -17,9 +17,6 @@ class PickerCalendarArgs {
   final void Function(DateTime) onChangeByCalendar;
   final void Function(BoardPickerItemOption, int) onChangeByPicker;
   final double Function() keyboardHeightRatio;
-  final ValueNotifier<DateTime>? startDate;
-  final ValueNotifier<DateTime>? endDate;
-  final void Function(DateTime start, DateTime end)? onMultiChange;
   final void Function(MultiCurrentDateType)? onChangeDateType;
   final void Function() onKeyboadClose;
 
@@ -34,9 +31,6 @@ class PickerCalendarArgs {
       required this.onChangeByCalendar,
       required this.onChangeByPicker,
       required this.keyboardHeightRatio,
-      this.startDate,
-      this.endDate,
-      this.onMultiChange,
       this.onChangeDateType,
       required this.onKeyboadClose});
 }
@@ -108,7 +102,6 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
             textColor: args.options.textColor,
             onChange: (index) => args.onChangeByPicker(x, index),
             wide: isWide,
-            subTitle: x.subTitle,
             selectedTextColor: args.options.selectedTextColor,
           ),
         ),
@@ -128,8 +121,7 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
                   style: textStyle,
                 ),
           );
-        } else if (x.type == DateType.hour ||
-            (x.type == DateType.minute && args.options.withSecond)) {
+        } else if (x.type == DateType.hour) {
           items.add(
             separator.timeSeparatorBuilder?.call(context, textStyle) ??
                 Text(

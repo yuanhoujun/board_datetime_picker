@@ -14,17 +14,14 @@ BoardPickerItemOption initItemOption(
   DateTime date,
   DateTime? minimum,
   DateTime? maximum,
-  String? subTitle,
-  bool withSecond
+  String? subTitle
 ) {
   return BoardPickerItemOption.init(
       pickerType,
       type,
       date,
       minimum,
-      maximum,
-      subTitle,
-      withSecond: withSecond
+      maximum
     );
 }
 
@@ -36,9 +33,7 @@ class BoardPickerItemOption {
     required this.itemMap,
     required this.selectedIndex,
     required this.minimumDate,
-    required this.maximumDate,
-    required this.subTitle,
-    required this.withSecond
+    required this.maximumDate
   });
 
   final DateTimePickerType pickerType;
@@ -64,23 +59,13 @@ class BoardPickerItemOption {
   /// Maximum year that can be specified
   final DateTime maximumDate;
 
-  /// Title to be displayed on item
-  final String? subTitle;
-
-  /// Flag indicating whether to specify seconds
-  /// Specified by 0 if not specified
-  final bool withSecond;
-
   /// Constractor
   factory BoardPickerItemOption.init(
     DateTimePickerType pickerType,
     DateType type,
     DateTime date,
     DateTime? minimum,
-    DateTime? maximum,
-    String? subTitle, {
-    bool withSecond = false
-  }) {
+    DateTime? maximum) {
     Map<int, int> map = {};
     int selected;
 
@@ -94,8 +79,7 @@ class BoardPickerItemOption {
           pickerType,
           date,
           minimum,
-          maximum,
-          subTitle,
+          maximum
         );
       case DateType.month:
         map = minmaxList(pickerType, DateType.month, date, mi, ma);
@@ -128,9 +112,7 @@ class BoardPickerItemOption {
       type: type,
       selectedIndex: selected,
       minimumDate: mi,
-      maximumDate: ma,
-      subTitle: subTitle,
-      withSecond: withSecond
+      maximumDate: ma
     );
   }
 
@@ -139,8 +121,7 @@ class BoardPickerItemOption {
     DateTimePickerType pickerType,
     DateTime date,
     DateTime? minimum,
-    DateTime? maximum,
-    String? subTitle,
+    DateTime? maximum
   ) {
     final minY = minimum?.year ?? DateTimeUtil.minimumYear;
 
@@ -156,9 +137,7 @@ class BoardPickerItemOption {
       type: DateType.year,
       selectedIndex: indexFromValue(max(date.year, minY), map),
       minimumDate: mi,
-      maximumDate: ma,
-      subTitle: subTitle,
-      withSecond: false
+      maximumDate: ma
     );
   }
 
@@ -412,8 +391,7 @@ class BoardPickerItemOption {
           date.month,
           newDay ?? date.day,
           date.hour,
-          date.minute,
-          withSecond ? date.second : 0,
+          date.minute
         );
       case DateType.month:
         return DateTime(
@@ -421,8 +399,7 @@ class BoardPickerItemOption {
           itemMap[selectedIndex]!,
           newDay ?? date.day,
           date.hour,
-          date.minute,
-          withSecond ? date.second : 0,
+          date.minute
         );
       case DateType.day:
         return DateTime(
@@ -430,8 +407,7 @@ class BoardPickerItemOption {
           date.month,
           newDay ?? itemMap[selectedIndex]!,
           date.hour,
-          date.minute,
-          withSecond ? date.second : 0,
+          date.minute
         );
       case DateType.hour:
         return DateTime(
@@ -439,8 +415,7 @@ class BoardPickerItemOption {
           date.month,
           date.day,
           itemMap[selectedIndex]!,
-          date.minute,
-          withSecond ? date.second : 0,
+          date.minute
         );
       case DateType.minute:
         return DateTime(
@@ -448,8 +423,7 @@ class BoardPickerItemOption {
           date.month,
           date.day,
           date.hour,
-          itemMap[selectedIndex]!,
-          withSecond ? date.second : 0,
+          itemMap[selectedIndex]!
         );
       case DateType.second:
         return DateTime(

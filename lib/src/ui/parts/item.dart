@@ -14,8 +14,7 @@ class ItemWidget extends StatefulWidget {
     required this.foregroundColor,
     required this.textColor,
     required this.selectedTextColor,
-    required this.wide,
-    required this.subTitle
+    required this.wide
   });
 
   final BoardPickerItemOption option;
@@ -24,7 +23,6 @@ class ItemWidget extends StatefulWidget {
   final Color? textColor;
   final Color? selectedTextColor;
   final bool wide;
-  final String? subTitle;
 
   @override
   State<ItemWidget> createState() => ItemWidgetState();
@@ -200,21 +198,6 @@ class ItemWidgetState extends State<ItemWidget>
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         children: [
-          if (widget.subTitle != null) ...[
-            Container(
-              height: widget.wide ? 40 : 32,
-              width: double.infinity,
-              alignment: Alignment.bottomCenter,
-              padding: EdgeInsets.only(bottom: widget.wide ? 8 : 4),
-              child: Text(
-                widget.subTitle!,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: widget.textColor?.withValues(alpha: 0.5),
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ),
-          ],
           Expanded(
             child: Stack(
               children: [

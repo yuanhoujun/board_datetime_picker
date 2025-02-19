@@ -17,7 +17,6 @@ class BoardDateTimeOptions {
     this.pickerFormat = PickerFormat.ymd,
     this.pickerSubTitles,
     this.weekend,
-    this.withSecond = false,
     this.topMargin = 20,
     this.calendarSelectionRadius,
     this.actionButtonTypes = const [
@@ -94,11 +93,6 @@ class BoardDateTimeOptions {
   /// Option to configure settings related to weekends
   /// Used to set the text color to be displayed
   final BoardPickerWeekendOptions? weekend;
-
-  /// Flag to allow seconds to be specified.
-  /// This parameter is only valid if `DateTimePickerType` is `time`.
-  /// The `datetime` case is not supported at this time due to width issues.
-  final bool withSecond;
 
   /// Set the margins above the top menu bar (calendar button, etc.).
   /// Default is `20`

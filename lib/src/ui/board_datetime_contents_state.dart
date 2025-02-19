@@ -218,8 +218,6 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
     final minDate = minimumDate;
     final maxDate = maximumDate;
 
-    final withSecond = widget.options.withSecond;
-
     List<BoardPickerItemOption> ymdOptions = [];
 
     if (DateTimePickerType.time != type) {
@@ -239,8 +237,7 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
               d,
               minDate,
               maxDate,
-              subTitle,
-              withSecond
+              subTitle
             ),
           );
         } else if (pf == 'M') {
@@ -252,8 +249,7 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
               d,
               minDate,
               maxDate,
-              subTitle,
-              withSecond
+              subTitle
             ),
           );
         } else if (pf == 'd') {
@@ -265,8 +261,7 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
               d,
               minDate,
               maxDate,
-              subTitle,
-              withSecond
+              subTitle
             ),
           );
         }
@@ -284,8 +279,7 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
           d,
           minDate,
           maxDate,
-          widget.options.getSubTitle(DateType.hour),
-          withSecond
+          widget.options.getSubTitle(DateType.hour)
         ),
         initItemOption(
           widget.pickerType,
@@ -293,20 +287,9 @@ abstract class BoardDatetimeContentState<T extends BoardDateTimeCommonResult,
           d,
           minDate,
           maxDate,
-          widget.options.getSubTitle(DateType.minute),
-          withSecond
+          widget.options.getSubTitle(DateType.minute)
         ),
-      ],
-      if (DateTimePickerType.time == type && widget.options.withSecond)
-        initItemOption(
-          widget.pickerType,
-          DateType.second,
-          d,
-          minDate,
-          maxDate,
-          widget.options.getSubTitle(DateType.second),
-          withSecond
-        ),
+      ]
     ];
 
     pickerType = type;

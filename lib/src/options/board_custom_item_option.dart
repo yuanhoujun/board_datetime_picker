@@ -17,9 +17,7 @@ class BoardPickerCustomItemOption extends BoardPickerItemOption {
     required super.itemMap,
     required super.selectedIndex,
     required super.minimumDate,
-    required super.maximumDate,
-    required super.subTitle,
-    required super.withSecond
+    required super.maximumDate
   });
 
   final List<int> customList;
@@ -31,9 +29,7 @@ class BoardPickerCustomItemOption extends BoardPickerItemOption {
     DateTime date,
     DateTime? minimum,
     DateTime? maximum,
-    String? subTitle, {
-    bool withSecond = false,
-  }) {
+    String? subTitle) {
     Map<int, int> map = {};
     int selected;
 
@@ -99,9 +95,7 @@ class BoardPickerCustomItemOption extends BoardPickerItemOption {
       selectedIndex: selected,
       minimumDate: mi,
       maximumDate: ma,
-      customList: customList,
-      subTitle: subTitle,
-      withSecond: withSecond,
+      customList: customList
     );
   }
 
