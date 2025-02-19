@@ -125,7 +125,6 @@ class _MySampleAppState extends State<MySampleApp> {
         activeColor: Colors.red,
         activeTextColor: Colors.yellow,
         actionButtonTypes: [BoardDateButtonType.today],
-        useResetButton: true,
         useAmpm: true,
         selectedTextColor: Colors.blue,
         textColor: Colors.grey,

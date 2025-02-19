@@ -15,11 +15,8 @@ class BoardDateTimeOptions {
     this.languages = const BoardPickerLanguages.en(),
     this.startDayOfWeek = DateTime.sunday,
     this.pickerFormat = PickerFormat.ymd,
-    this.boardTitle,
-    this.boardTitleTextStyle,
     this.pickerSubTitles,
     this.weekend,
-    this.inputable = true,
     this.withSecond = false,
     this.topMargin = 20,
     this.calendarSelectionRadius,
@@ -28,7 +25,6 @@ class BoardDateTimeOptions {
       BoardDateButtonType.tomorrow
     ],
     this.calendarSelectionBuilder,
-    this.useResetButton = false,
     this.useAmpm = false,
     this.separators,
     this.selectedTextColor,
@@ -89,12 +85,6 @@ class BoardDateTimeOptions {
   ///
   final BoardDateTimePickerFormat pickerFormat;
 
-  /// Title to be displayed at the top of the picker
-  final String? boardTitle;
-
-  /// BoardTitle text style
-  final TextStyle? boardTitleTextStyle;
-
   /// You can specify a subtitle for each item in the picker.
   /// Default is unspecified and no subtitle is displayed.
   ///
@@ -104,12 +94,6 @@ class BoardDateTimeOptions {
   /// Option to configure settings related to weekends
   /// Used to set the text color to be displayed
   final BoardPickerWeekendOptions? weekend;
-
-  /// Flag whether the date to be selected should be text-enabled or not.
-  /// If `true`, text can be entered by tapping on the selected area of the Picker.
-  /// If `false`, text input is not possible, only scrolling picker.
-  /// Default is `true`.
-  final bool inputable;
 
   /// Flag to allow seconds to be specified.
   /// This parameter is only valid if `DateTimePickerType` is `time`.
@@ -154,10 +138,6 @@ class BoardDateTimeOptions {
   /// Background radius for the date selected in the calendar.
   /// If not specified, display as a circle
   final double? calendarSelectionRadius;
-
-  /// If you want to use the reset button, please set it to true.
-  /// The reset button will be displayed on the right side of the header section.
-  final bool useResetButton;
 
   /// Set if the time is to be displayed as AM/PM.
   /// This value is valid only for `DateTimePickerType.time`

@@ -244,7 +244,6 @@ class SingleBoardDateTimeContent<T extends BoardDateTimeCommonResult>
     required super.breakpoint,
     required super.options,
     super.modal = false,
-    super.withTextField = false,
     super.onCloseModal,
     super.keyboardHeightNotifier,
     super.onCreatedDateState,
@@ -408,12 +407,10 @@ class _SingleBoardDateTimeContentState<T extends BoardDateTimeCommonResult>
       minimumDate: widget.minimumDate ?? DateTimeUtil.defaultMinDate,
       maximumDate: widget.maximumDate ?? DateTimeUtil.defaultMaxDate,
       modal: widget.modal,
-      withTextField: widget.withTextField,
       pickerFocusNode: widget.pickerFocusNode,
       topMargin: widget.options.topMargin,
       onTopActionBuilder: widget.onTopActionBuilder,
       actionButtonTypes: widget.options.actionButtonTypes,
-      onReset: widget.options.useResetButton ? reset : null,
       customCloseButtonBuilder: widget.customCloseButtonBuilder,
     );
   }

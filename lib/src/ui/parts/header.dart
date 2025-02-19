@@ -29,12 +29,10 @@ class BoardDateTimeHeader extends StatefulWidget {
     required this.minimumDate,
     required this.maximumDate,
     required this.modal,
-    required this.withTextField,
     required this.pickerFocusNode,
     required this.topMargin,
     required this.onTopActionBuilder,
     required this.actionButtonTypes,
-    required this.onReset,
     required this.customCloseButtonBuilder,
   });
 
@@ -91,9 +89,6 @@ class BoardDateTimeHeader extends StatefulWidget {
   /// Modal Flag
   final bool modal;
 
-  /// TextField Flag
-  final bool withTextField;
-
   /// Picker FocusNode
   final FocusNode? pickerFocusNode;
 
@@ -105,9 +100,6 @@ class BoardDateTimeHeader extends StatefulWidget {
 
   /// List of buttons to select dates.
   final List<BoardDateButtonType> actionButtonTypes;
-
-  /// reset button callback (if use reset)
-  final void Function()? onReset;
 
   /// Custom Close Button Builder
   final CloseButtonBuilder? customCloseButtonBuilder;
@@ -189,14 +181,6 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
       ),
     );
 
-    if (widget.withTextField) {
-      return GestureDetector(
-        onTapDown: (_) {
-          widget.pickerFocusNode?.requestFocus();
-        },
-        child: child,
-      );
-    }
     return child;
   }
 }
@@ -287,14 +271,6 @@ class _BoardDateTimeNoneButtonHeaderState
             SizedBox(width: buttonSize),
           ],
           if (widget.keyboardHeightRatio == 0) SizedBox(width: buttonSize + 8),
-          Expanded(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: _title(),
-              ),
-            ),
-          ),
           ..._rightButton(),
         ],
       ),
@@ -305,23 +281,6 @@ class _BoardDateTimeNoneButtonHeaderState
         widget.pickerFocusNode?.requestFocus();
       },
       child: child,
-    );
-  }
-
-  Widget _title() {
-    if (widget.options.boardTitle == null ||
-        widget.options.boardTitle!.isEmpty) {
-      return const SizedBox();
-    }
-    return FittedBox(
-      child: Text(
-        widget.options.boardTitle ?? '',
-        style: widget.options.boardTitleTextStyle ??
-            Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: widget.options.getTextColor(context),
-                  fontWeight: FontWeight.bold,
-                ),
-      ),
     );
   }
 
@@ -371,28 +330,5 @@ class _BoardDateTimeNoneButtonHeaderState
       // ],
       child,
     ];
-  }
-}
-
-class TopTitleWidget extends StatelessWidget {
-  const TopTitleWidget({super.key, required this.options});
-
-  final BoardDateTimeOptions options;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20, left: 8, right: 8),
-      alignment: Alignment.center,
-      child: Text(
-        options.boardTitle ?? '',
-        style: options.boardTitleTextStyle ??
-            Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: options.getTextColor(context),
-                  fontWeight: FontWeight.bold,
-                ),
-        maxLines: 1,
-      ),
-    );
   }
 }

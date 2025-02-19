@@ -26,7 +26,6 @@ abstract class BoardDateTimeContent<T extends BoardDateTimeCommonResult>
     required this.breakpoint,
     required this.options,
     this.modal = false,
-    this.withTextField = false,
     this.onCloseModal,
     this.keyboardHeightNotifier,
     this.onCreatedDateState,
@@ -47,9 +46,6 @@ abstract class BoardDateTimeContent<T extends BoardDateTimeCommonResult>
 
   /// Flag whether modal display is performed
   final bool modal;
-
-  /// Flag indicating whether the text field is used as a Picker or not.
-  final bool withTextField;
 
   /// Callback for closing a modal
   final void Function()? onCloseModal;
