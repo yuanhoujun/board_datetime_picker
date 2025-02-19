@@ -45,16 +45,6 @@ class BoardDateTimeController {
   GlobalKey get boardKey => _key;
 }
 
-/// Controller for displaying, hiding, and updating the value of the picker
-class SingleBoardDateTimeContentsController {
-  // ignore: library_private_types_in_public_api
-  final GlobalKey<_SingleBoardDateTimeContentState> key = GlobalKey();
-
-  void changeDate(DateTime date) {
-    key.currentState?.changeDateTime(date);
-  }
-}
-
 typedef DateTimeBuilderWidget = Widget Function(BuildContext context);
 
 /// ### BoardDateTimeBuilder

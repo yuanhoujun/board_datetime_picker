@@ -1,13 +1,8 @@
-import 'dart:math';
-
 import 'package:board_datetime_picker/src/board_datetime_options.dart';
-import 'package:board_datetime_picker/src/utils/board_datetime_options_extension.dart';
 import 'package:board_datetime_picker/src/utils/board_enum.dart';
 import 'package:board_datetime_picker/src/utils/datetime_util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import 'buttons.dart';
 
 class BoardDateTimeHeader extends StatefulWidget {
   const BoardDateTimeHeader(
@@ -142,28 +137,31 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
 
   @override
   Widget build(BuildContext context) {
-     final locale = Localizations.localeOf(context);
-  final dateFormatter = DateFormat.yMMMMd(locale.toString());
-  final timeFormatter = DateFormat.Hm(locale.toString());
-  final weekdayFormatter = DateFormat.EEEE(locale.toString()); // 格式化星期几
+    final locale = Localizations.localeOf(context);
+    final dateFormatter = DateFormat.yMMMMd(locale.toString());
+    final timeFormatter = DateFormat.Hm(locale.toString());
+    final weekdayFormatter = DateFormat.EEEE(locale.toString()); // 格式化星期几
 
-  final formattedDate = dateFormatter.format(currentDate);
-  final formattedTime = timeFormatter.format(currentDate);
+    final formattedDate = dateFormatter.format(currentDate);
+    final formattedTime = timeFormatter.format(currentDate);
     final formattedWeekday = weekdayFormatter.format(currentDate); // 获取星期几
 
-  
     final child = SizedBox(
       height: 80,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(width: 15),
-           Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: [Text(formattedDate), Text("/"), Text(formattedWeekday)],
+                children: [
+                  Text(formattedDate),
+                  Text("/"),
+                  Text(formattedWeekday)
+                ],
               ),
               SizedBox(height: 5),
               Text(formattedTime)
@@ -171,10 +169,8 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
           ),
           const Spacer(),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              elevation: 0
-            ),
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green, elevation: 0),
               onPressed: () {
                 final now = DateTime.now();
                 widget.onChangeDate(now);
