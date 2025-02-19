@@ -83,15 +83,12 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
         current.minute == other.minute;
   }
 
-  
-
   Widget picker({required bool isWide}) {
     final separator = options.separators;
 
     List<Widget> items = [];
-  
+
     for (final x in args.listOptions) {
-  
       items.add(
         Expanded(
           flex: x.flex,
@@ -269,7 +266,8 @@ class _PickerCalendarStandardWidgetState
               mainAxisSize: MainAxisSize.min,
               children: [
                 args.headerBuilder(context),
-                Expanded(child: Stack(
+                Expanded(
+                    child: Stack(
                   children: [
                     Align(
                       alignment: Alignment.center,
@@ -278,9 +276,8 @@ class _PickerCalendarStandardWidgetState
                         width: double.infinity,
                         margin: EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
-                          color: Color(0xfff3f6f6),
-                          borderRadius: BorderRadius.circular(6)
-                        ),
+                            color: Color(0xfff3f6f6),
+                            borderRadius: BorderRadius.circular(6)),
                       ),
                     ),
                     contents()
@@ -295,26 +292,9 @@ class _PickerCalendarStandardWidgetState
   }
 
   Widget contents() {
-    return Stack(
-      children: [
-        // Visibility(
-        //   visible: widget.calendarAnimation.value != 0,
-        //   child: FadeTransition(
-        //     opacity: widget.calendarAnimation,
-        //     child: calendar(
-        //       background: args.options.getBackgroundColor(context),
-        //       isWide: false,
-        //     ),
-        //   ),
-        // ),
-        Visibility(
-          visible: widget.calendarAnimation.value != 1,
-          child: FadeTransition(
-            opacity: widget.pickerFormAnimation,
-            child: picker(isWide: false),
-          ),
-        ),
-      ],
+    return FadeTransition(
+      opacity: widget.pickerFormAnimation,
+      child: picker(isWide: false),
     );
   }
 

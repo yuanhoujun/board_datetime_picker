@@ -5,33 +5,33 @@ import 'package:board_datetime_picker/src/utils/board_datetime_options_extension
 import 'package:board_datetime_picker/src/utils/board_enum.dart';
 import 'package:board_datetime_picker/src/utils/datetime_util.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'buttons.dart';
 
 class BoardDateTimeHeader extends StatefulWidget {
-  const BoardDateTimeHeader({
-    super.key,
-    required this.wide,
-    required this.dateState,
-    required this.pickerType,
-    required this.keyboardHeightRatio,
-    required this.calendarAnimation,
-    required this.onChangeDate,
-    required this.onChangTime,
-    required this.onClose,
-    required this.backgroundColor,
-    required this.foregroundColor,
-    required this.textColor,
-    required this.activeColor,
-    required this.activeTextColor,
-    required this.languages,
-    required this.minimumDate,
-    required this.maximumDate,
-    required this.modal,
-    required this.pickerFocusNode,
-    required this.topMargin,
-    required this.actionButtonTypes
-  });
+  const BoardDateTimeHeader(
+      {super.key,
+      required this.wide,
+      required this.dateState,
+      required this.pickerType,
+      required this.keyboardHeightRatio,
+      required this.calendarAnimation,
+      required this.onChangeDate,
+      required this.onChangTime,
+      required this.onClose,
+      required this.backgroundColor,
+      required this.foregroundColor,
+      required this.textColor,
+      required this.activeColor,
+      required this.activeTextColor,
+      required this.languages,
+      required this.minimumDate,
+      required this.maximumDate,
+      required this.modal,
+      required this.pickerFocusNode,
+      required this.topMargin,
+      required this.actionButtonTypes});
 
   /// Wide mode display flag
   final bool wide;
@@ -105,6 +105,7 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
   bool isYesterday = false;
 
   late ValueNotifier<DateTime> dateState;
+  late DateTime currentDate;
 
   @override
   void initState() {
@@ -124,6 +125,7 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
 
   void setup(ValueNotifier<DateTime> state, {bool rebuild = false}) {
     dateState = state;
+    currentDate = dateState.value;
     dateState.addListener(changeListener);
     if (rebuild) {
       changeListener();
@@ -137,26 +139,37 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
     isToday = dateState.value.compareDate(now);
     isTomorrow = dateState.value.compareDate(now.addDay(1));
     isYesterday = dateState.value.compareDate(now.addDay(-1));
+    currentDate = dateState.value;
   }
 
   double get height => widget.wide ? 64 : 52;
 
   @override
   Widget build(BuildContext context) {
+     final locale = Localizations.localeOf(context);
+  final dateFormatter = DateFormat.yMMMMd(locale.toString());
+  final timeFormatter = DateFormat.Hm(locale.toString());
+  final weekdayFormatter = DateFormat.EEEE(locale.toString()); // 格式化星期几
+
+  final formattedDate = dateFormatter.format(currentDate);
+  final formattedTime = timeFormatter.format(currentDate);
+    final formattedWeekday = weekdayFormatter.format(currentDate); // 获取星期几
+
+  
     final child = SizedBox(
       height: 80,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(width: 15),
-          const Column(
+           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
-                children: [Text("2025年2月18日"), Text("/"), Text("周二")],
+                children: [Text(formattedDate), Text("/"), Text(formattedWeekday)],
               ),
               SizedBox(height: 5),
-              Text("14:36")
+              Text(formattedTime)
             ],
           ),
           const Spacer(),
@@ -177,19 +190,18 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
 }
 
 class BoardDateTimeNoneButtonHeader extends StatefulWidget {
-  const BoardDateTimeNoneButtonHeader({
-    super.key,
-    required this.options,
-    required this.wide,
-    required this.dateState,
-    required this.pickerType,
-    required this.keyboardHeightRatio,
-    required this.calendarAnimation,
-    required this.onKeyboadClose,
-    required this.onClose,
-    required this.modal,
-    required this.pickerFocusNode
-  });
+  const BoardDateTimeNoneButtonHeader(
+      {super.key,
+      required this.options,
+      required this.wide,
+      required this.dateState,
+      required this.pickerType,
+      required this.keyboardHeightRatio,
+      required this.calendarAnimation,
+      required this.onKeyboadClose,
+      required this.onClose,
+      required this.modal,
+      required this.pickerFocusNode});
 
   final BoardDateTimeOptions options;
 
@@ -287,24 +299,22 @@ class _BoardDateTimeNoneButtonHeaderState
     //   );
     // }
 
-    Widget child =
-        (widget.modal
-            ? CustomIconButton(
-                icon: Icons.check_circle_rounded,
-                bgColor: widget.options.getActiveColor(context),
-                fgColor: widget.options.getActiveTextColor(context),
-                onTap: widget.onClose,
-                buttonSize: buttonSize,
-              )
-            : CustomIconButton(
-                icon: Icons.close_rounded,
-                bgColor: widget.options.getForegroundColor(context),
-                fgColor: widget.options
-                    .getTextColor(context)
-                    ?.withValues(alpha: 0.8),
-                onTap: widget.onClose,
-                buttonSize: buttonSize,
-              ));
+    Widget child = (widget.modal
+        ? CustomIconButton(
+            icon: Icons.check_circle_rounded,
+            bgColor: widget.options.getActiveColor(context),
+            fgColor: widget.options.getActiveTextColor(context),
+            onTap: widget.onClose,
+            buttonSize: buttonSize,
+          )
+        : CustomIconButton(
+            icon: Icons.close_rounded,
+            bgColor: widget.options.getForegroundColor(context),
+            fgColor:
+                widget.options.getTextColor(context)?.withValues(alpha: 0.8),
+            onTap: widget.onClose,
+            buttonSize: buttonSize,
+          ));
 
     return [
       // if (closeKeyboard != null) ...[
