@@ -240,9 +240,9 @@ abstract class PickerCalendarState<T extends PickerCalendarWidget>
     debugPrint("items size: ${items.length} ###");
 
     return Container(
-      color: isSelected(year, month, day, hour, minute)
-          ? options.selectedItemBackgroundColor
-          : Colors.transparent,
+      // color: isSelected(year, month, day, hour, minute)
+      //     ? options.selectedItemBackgroundColor
+      //     : Colors.transparent,
       child: Align(
         alignment: Alignment.topCenter,
         child: Row(
@@ -506,7 +506,23 @@ class _PickerCalendarStandardWidgetState
               mainAxisSize: MainAxisSize.min,
               children: [
                 args.headerBuilder(context),
-                Expanded(child: contents()),
+                Expanded(child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        height: 50,
+                        width: double.infinity,
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: Color(0xfff3f6f6),
+                          borderRadius: BorderRadius.circular(6)
+                        ),
+                      ),
+                    ),
+                    contents()
+                  ],
+                )),
               ],
             ),
           ),

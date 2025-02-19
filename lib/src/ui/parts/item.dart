@@ -307,7 +307,7 @@ class ItemWidgetState extends State<ItemWidget>
                             focusNode: pickerFocusNode,
                             child: ListWheelScrollView.useDelegate(
                               controller: scrollController,
-                              physics: const FixedExtentScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               itemExtent: itemSize,
                               diameterRatio: 8,
                               perspective: 0.01,
