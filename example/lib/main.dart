@@ -56,11 +56,11 @@ class _MySampleAppState extends State<MySampleApp> {
               child: Column(
                 children: [
                   ElevatedButton(
-                      style: ElevatedButton.styleFrom(fixedSize: Size(250, 40)),
+                      style: ElevatedButton.styleFrom(fixedSize: const Size(250, 40)),
                       onPressed: () {
                         _showDateTimePicker();
                       },
-                      child: Text("时间选择器"))
+                      child: const Text("时间选择器"))
                 ],
               ),
             ),
@@ -120,16 +120,10 @@ class _MySampleAppState extends State<MySampleApp> {
         pickerFormat: PickerFormat.ymd,
         // boardTitle: 'Board Picker',
         // pickerSubTitles: BoardDateTimeItemTitles(year: 'year'),
-        withSecond: false,
         foregroundColor: Colors.transparent,
         topMargin: 0,
         activeColor: Colors.red,
         activeTextColor: Colors.yellow,
-        customOptions: false
-            ? BoardPickerCustomOptions(
-                seconds: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55],
-              )
-            : null,
         actionButtonTypes: [BoardDateButtonType.today],
         useResetButton: true,
         useAmpm: true,
@@ -171,7 +165,7 @@ class _MySampleAppState extends State<MySampleApp> {
       // ),
       customCloseButtonBuilder:
           (BuildContext context, bool isModal, void Function() onClose) {
-        return TextButton(onPressed: () {}, child: Text("关闭"));
+        return TextButton(onPressed: () {}, child: const Text("关闭"));
       },
       onTopActionBuilder: (context) {
         return Container(
@@ -250,18 +244,12 @@ class PickerItemWidget extends StatelessWidget {
             pickerType: pickerType,
             // initialDate: DateTime.now(),
             // minimumDate: DateTime.now().add(const Duration(days: 1)),
-            options: BoardDateTimeOptions(
-              languages: const BoardPickerLanguages.en(),
+            options: const BoardDateTimeOptions(
+              languages: BoardPickerLanguages.en(),
               startDayOfWeek: DateTime.sunday,
               pickerFormat: PickerFormat.ymd,
               // boardTitle: 'Board Picker',
               // pickerSubTitles: BoardDateTimeItemTitles(year: 'year'),
-              withSecond: DateTimePickerType.time == pickerType,
-              customOptions: DateTimePickerType.time == pickerType
-                  ? BoardPickerCustomOptions(
-                      seconds: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55],
-                    )
-                  : null,
               // separators: BoardDateTimePickerSeparators(
               //   date: PickerSeparator.slash,
               //   dateTimeSeparatorBuilder: (context, defaultTextStyle) {
