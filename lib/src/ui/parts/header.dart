@@ -166,26 +166,6 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
 
   double get height => widget.wide ? 64 : 52;
 
-  Widget _defaultCloseButtonBuilder(
-    BuildContext context,
-    bool isModal,
-    void Function() onClose,
-  ) =>
-      isModal
-          ? IconButton(
-              onPressed: onClose,
-              icon: const Icon(Icons.check_circle_rounded),
-              color: widget.activeColor,
-            )
-          : Opacity(
-              opacity: 0.6,
-              child: IconButton(
-                onPressed: onClose,
-                icon: const Icon(Icons.close_rounded),
-                color: widget.textColor,
-              ),
-            );
-
   @override
   Widget build(BuildContext context) {
     final child = SizedBox(
@@ -226,103 +206,6 @@ class BoardDateTimeHeaderState extends State<BoardDateTimeHeader> {
       );
     }
     return child;
-  }
-
-  List<Widget> _dateItems(BuildContext context) {
-    final today = DateTime.now();
-    final tomorrow = today.addDay(1);
-    final yesterday = today.addDay(-1);
-
-    List<Widget> buttons = [];
-    for (final item in widget.actionButtonTypes) {
-      switch (item) {
-        case BoardDateButtonType.today:
-          if (today.isWithinRange(widget.minimumDate, widget.maximumDate)) {
-            buttons.add(_textButton(
-              context,
-              widget.languages.today,
-              () => widget.onChangeDate(DateTime.now()),
-              selected: isToday,
-            ));
-          }
-          break;
-        case BoardDateButtonType.tomorrow:
-          if (tomorrow.isWithinRange(widget.minimumDate, widget.maximumDate)) {
-            buttons.add(_textButton(
-              context,
-              widget.languages.tomorrow,
-              () => widget.onChangeDate(DateTime.now().addDayWithTime(1)),
-              selected: isTomorrow,
-            ));
-          }
-          break;
-        case BoardDateButtonType.yesterday:
-          if (yesterday.isWithinRange(widget.minimumDate, widget.maximumDate)) {
-            buttons.add(_textButton(
-              context,
-              widget.languages.yesterday,
-              () => widget.onChangeDate(DateTime.now().addDayWithTime(-1)),
-              selected: isYesterday,
-            ));
-          }
-          break;
-      }
-    }
-
-    return [
-      // _calendarButton(),
-      // Wrap(
-      //   spacing: widget.wide ? 20 : 12,
-      //   children: buttons,
-      // )
-    ];
-  }
-
-  List<Widget> _timeItems(BuildContext context) {
-    if (DateTime.now().isWithinRange(widget.minimumDate, widget.maximumDate)) {
-      return [];
-    }
-
-    return [
-      const SizedBox(width: 24),
-      _textButton(
-        context,
-        widget.languages.now,
-        () => widget.onChangTime(DateTime.now()),
-      ),
-    ];
-  }
-
-  Widget _textButton(
-    BuildContext context,
-    String title,
-    void Function() callback, {
-    bool selected = false,
-  }) {
-    return Material(
-      color: selected
-          ? widget.activeColor
-          : widget.backgroundColor.withValues(alpha: 0.8),
-      clipBehavior: Clip.antiAlias,
-      borderRadius: BorderRadius.circular(4),
-      child: InkWell(
-        onTap: callback,
-        child: Container(
-          height: 32,
-          padding: EdgeInsets.symmetric(horizontal: widget.wide ? 24 : 12),
-          child: Center(
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: selected
-                        ? widget.activeTextColor
-                        : widget.textColor?.withValues(alpha: 0.9),
-                  ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }
 
